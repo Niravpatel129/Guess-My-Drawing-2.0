@@ -1,7 +1,15 @@
 import { combineReducers } from "redux";
 
-export default combineReducers({
-  dummy: () => {
-    return 99;
+const contactReducer = (state = [], action) => {
+  // Do somethin
+  switch (action.type) {
+    case "SET_INFO":
+      return action.payload;
+    default:
+      return state;
   }
+};
+
+export default combineReducers({
+  contactReducer
 });

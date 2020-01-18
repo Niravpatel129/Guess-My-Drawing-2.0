@@ -1,4 +1,7 @@
 import React, { useRef, useEffect } from "react";
+
+import { useSelector } from "react-redux";
+
 import "./Canvas.scss";
 import { isMobile } from "react-device-detect";
 import CanvasDraw from "react-canvas-draw";
@@ -8,20 +11,23 @@ import io from "socket.io-client";
 let socket;
 
 function Canvas() {
+  const userInfo = useSelector(state => state.contactReducer);
+  const { name, room } = userInfo;
+  console.log(name, room);
   const canvas = useRef();
 
   useEffect(() => {
     socket = io.connect("http://localhost:5000/");
 
     socket.on("updateData", data => {
-      if (canvas && data) {
+      if (canvas.current && data) {
         canvas.current.loadSaveData(data, true);
       }
     });
   }, []);
 
   const undo = () => {
-    canvas.current.undo();
+    if (canvas) canvas.current.undo();
   };
 
   return (
@@ -29,7 +35,10 @@ function Canvas() {
       {!isMobile ? (
         <div
           onMouseUp={() => {
-            socket.emit("drawingData", canvas.current.getSaveData());
+            socket.emit("drawingData", {
+              data: canvas.current.getSaveData(),
+              room
+            });
           }}
         >
           <CanvasDraw

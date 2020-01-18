@@ -13,7 +13,7 @@ server.listen(PORT, () => {
 app.use(router);
 
 io.on("connection", socket => {
-  socket.on("drawingData", data => {
+  socket.on("drawingData", ({ data, room }) => {
     socket.broadcast.emit("updateData", data);
   });
 });
