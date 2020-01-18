@@ -1,11 +1,15 @@
 import React from "react";
 import "./Landing.scss";
+import { Link } from "react-router-dom";
 
 function Landing() {
   return (
-    <div>
+    <section className="Landing">
       <h1>Landing</h1>
-    </div>
+      <button>
+        <Link to="/canvas">Go to Canvas</Link>
+      </button>
+    </section>
   );
 }
 

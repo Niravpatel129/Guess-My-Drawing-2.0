@@ -1,0 +1,11 @@
+.Canvas {
+  display: flex;
+  justify-content: center;
+  background-color: lightblue;
+
+  canvas {
+    border: 1px solid black;
+    background-color: white;
+    width: 900px;
+  }
+}
