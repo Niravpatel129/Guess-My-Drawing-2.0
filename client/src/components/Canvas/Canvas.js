@@ -17,14 +17,18 @@ function Canvas() {
   const canvas = useRef();
 
   useEffect(() => {
-    socket = io.connect("http://localhost:5000/");
-
+    if (process.env.NODE_ENV === "production") {
+      socket = io.connect("https://drawing-game-server-2.herokuapp.com");
+    } else {
+      socket = io.connect("localhost:5000");
+    }
+    socket.emit("joinRoom", room);
     socket.on("updateData", data => {
       if (canvas.current && data) {
         canvas.current.loadSaveData(data, true);
       }
     });
-  }, []);
+  }, [room]);
 
   const undo = () => {
     if (canvas) canvas.current.undo();
