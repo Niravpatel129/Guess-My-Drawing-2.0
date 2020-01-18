@@ -14,7 +14,6 @@ function Canvas() {
     socket = io.connect("http://localhost:5000/");
 
     socket.on("updateData", data => {
-      console.log("recieve data");
       canvas.current.loadSaveData(data, true);
     });
   }, []);
@@ -28,7 +27,6 @@ function Canvas() {
       {!isMobile ? (
         <div
           onMouseUp={() => {
-            console.log("sending data");
             socket.emit("drawingData", canvas.current.getSaveData());
           }}
         >
