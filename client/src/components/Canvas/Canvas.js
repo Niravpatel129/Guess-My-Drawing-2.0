@@ -14,7 +14,9 @@ function Canvas() {
     socket = io.connect("http://localhost:5000/");
 
     socket.on("updateData", data => {
-      canvas.current.loadSaveData(data, true);
+      if (canvas && data) {
+        canvas.current.loadSaveData(data, true);
+      }
     });
   }, []);
 
