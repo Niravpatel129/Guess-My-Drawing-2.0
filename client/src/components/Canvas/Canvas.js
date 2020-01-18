@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import "./Canvas.scss";
-
+import { isMobile } from "react-device-detect";
 import CanvasDraw from "react-canvas-draw";
 
 function Canvas() {
@@ -12,21 +12,29 @@ function Canvas() {
   };
 
   const load = () => {
-    console.log(canvas.current.loadSaveData(saved, false));
+    if (saved) canvas.current.loadSaveData(saved, false);
   };
 
   useEffect(() => {});
 
   return (
     <section className="Canvas">
-      <CanvasDraw
-        ref={canvas}
-        canvasWidth={1200}
-        canvasHeight={550}
-        disabled={false}
-      />
-      <button onClick={save}>Save</button>
-      <button onClick={load}>Load</button>
+      {!isMobile ? (
+        <div>
+          <CanvasDraw
+            ref={canvas}
+            canvasWidth={1200}
+            canvasHeight={550}
+            disabled={false}
+            lazyRadius={0}
+            hideInterface={false}
+          />
+          <button onClick={save}>Save</button>
+          <button onClick={load}>Load</button>
+        </div>
+      ) : (
+        <h1>Mobile not supported</h1>
+      )}
     </section>
   );
 }
