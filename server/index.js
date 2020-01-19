@@ -21,8 +21,10 @@ io.on("connection", socket => {
   // join room
   socket.on("join", ({ name, room }, callback) => {
     let error = false;
+    const messages = AllRooms.getAllMessages(room);
     AllRooms.newRoom(room);
     socket.join(room);
+    io.in(room).emit("updateMessage", messages);
 
     if (error) {
       callback();
