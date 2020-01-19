@@ -18,17 +18,29 @@ server.listen(PORT, () => {
 app.use(router);
 
 io.on("connection", socket => {
+  console.log("connected");
+
   // join room
-  socket.on("join", ({ name, room }, callback) => {
+  socket.on("join", ({ name, room, googleUserInfo }, callback) => {
     let error = false;
     const messages = AllRooms.getAllMessages(room);
-    AllRooms.newRoom(room);
+    AllRooms.newRoom(room); // make a new room
+    // find room and add user
+    AllRooms.findUserAndAddToRoom(room, { googleUserInfo, socketId: socket });
+
+    // get all rooms
     socket.join(room);
     io.in(room).emit("updateMessage", messages);
 
     if (error) {
       callback();
     }
+  });
+
+  // get all rooms
+  socket.on("getAllRooms", () => {
+    AllRooms.clearEmptyRooms();
+    socket.emit("sendAllRooms", AllRooms.findAllRooms());
   });
 
   // get new chat message
@@ -39,8 +51,9 @@ io.on("connection", socket => {
   });
 
   // disconnect room
-  socket.on("disonnect", () => {
+  socket.on("disconnect", () => {
     console.log("user disconnect");
+    AllRooms.removeUser(socket.id);
   });
 
   // drawing data

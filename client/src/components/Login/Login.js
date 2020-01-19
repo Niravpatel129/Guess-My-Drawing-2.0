@@ -10,6 +10,7 @@ function Login() {
   const history = useHistory();
 
   const responseGoogle = response => {
+    localStorage.setItem("loginUserInfo", JSON.stringify(response.profileObj));
     dispatch({ type: "LOGIN_USER", payload: response.profileObj });
     history.push("/join");
   };

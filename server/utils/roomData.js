@@ -15,7 +15,21 @@ class roomData {
   }
 
   addUser(user) {
+    console.log("add user");
+
     this.users.push(user);
+  }
+
+  removeUser(user) {
+    console.log("remove user");
+    let removeUserIndex = this.users.findIndex(i => {
+      return i.socketId === user.socketId;
+    });
+    this.users.splice(removeUserIndex, 1);
+  }
+
+  getAllUsersInRoom() {
+    return this.users;
   }
 
   addMessage(name, message) {
