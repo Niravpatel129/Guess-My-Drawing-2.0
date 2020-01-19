@@ -17,6 +17,14 @@ class roomData {
   addUser(user) {
     this.users.push(user);
   }
+
+  addMessage(name, message) {
+    this.messages.push({ name, message });
+  }
+
+  getAllMessages() {
+    return this.messages;
+  }
 }
 
 module.exports = { roomData };

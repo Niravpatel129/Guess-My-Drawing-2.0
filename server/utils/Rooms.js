@@ -7,13 +7,18 @@ class Rooms {
 
   newRoom(roomName) {
     if (this.rooms.indexOf(roomName) === -1) {
-      this.rooms.push(roomName);
+      this.rooms.push(new roomData(roomName));
     }
   }
 
-  pushMessage(roomName) {
-    const index = this.rooms.find(i => i.roomName === roomName);
-    console.log(index);
+  pushMessage(name, roomName, input) {
+    const find = this.rooms.find(i => i.roomId === roomName);
+    if (find) find.addMessage(name, input);
+  }
+
+  getAllMessages(roomName) {
+    const find = this.rooms.find(i => i.roomId === roomName);
+    if (find) return find.getAllMessages();
   }
 
   resetRooms() {

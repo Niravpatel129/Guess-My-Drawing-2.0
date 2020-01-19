@@ -7,12 +7,18 @@ import SocketContext from "../../context";
 function Chat() {
   let { socket } = useContext(SocketContext);
 
-  const [messages, addMessage] = useState([]);
+  const [msg, addMsg] = useState([]);
   const [input, changeInput] = useState("");
 
   const { name, room } = useSelector(state => state.contactReducer);
 
   const messagesRef = useRef();
+
+  useEffect(() => {
+    socket.on("updateMessage", res => {
+      addMsg(res);
+    });
+  }, [socket]);
 
   useEffect(() => {
     messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
@@ -23,13 +29,15 @@ function Chat() {
       if (input) {
         // on key press enter
         socket.emit("chatMessage", { name, room, input });
-        addMessage([
-          ...messages,
-          <Message message={input} key={messages.length + 1} />
-        ]);
       }
       changeInput("");
     }
+  };
+
+  const renderMessage = () => {
+    return msg.map((e, index) => {
+      return <Message name={e.name} message={e.message} key={index} />;
+    });
   };
 
   return (
@@ -38,9 +46,7 @@ function Chat() {
         <h1>ChatBox</h1>
       </div>
       <div className="messages" ref={messagesRef}>
-        {messages.map((e, index) => {
-          return e;
-        })}
+        {renderMessage()}
       </div>
       <input
         value={input}
