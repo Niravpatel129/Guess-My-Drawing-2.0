@@ -7,9 +7,9 @@ const router = require("./router");
 const PORT = process.env.PORT || 5000;
 
 // setup
-const { Rooms } = require("./utils/Rooms");
+const { AllRoomsGenerator } = require("./utils/AllRoomsGenerator");
 
-const AllRooms = new Rooms();
+const AllRooms = new AllRoomsGenerator();
 
 server.listen(PORT, () => {
   console.log("Server started on port", PORT);

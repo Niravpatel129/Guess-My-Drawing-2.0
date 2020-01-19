@@ -12,12 +12,14 @@ import SocketContext from "../../context";
 
 function Canvas() {
   let { socket } = useContext(SocketContext);
+  const loginInfo = useSelector(state => state.userInfoReducer);
 
   const { name, room } = useSelector(state => state.contactReducer);
+
   const canvas = useRef();
 
   useEffect(() => {
-    socket.emit("join", { name, room }, () => {
+    socket.emit("join", { name, room, loginInfo }, () => {
       socket.emit("disconnect");
       alert("Error");
       socket.off();
@@ -28,7 +30,7 @@ function Canvas() {
         canvas.current.loadSaveData(data, true);
       }
     });
-  }, [room, name, socket]);
+  }, [room, name, socket, loginInfo]);
 
   return (
     <section className="Canvas">

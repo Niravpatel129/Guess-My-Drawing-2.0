@@ -1,0 +1,32 @@
+.RoomList {
+  background-image: url("https://digitalsynopsis.com/wp-content/uploads/2017/02/beautiful-color-gradients-backgrounds-100-vicious-stance.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  padding-top: 5%;
+  .Container {
+    margin: 0;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+  }
+  .list-item {
+    background-color: violet;
+    display: flex;
+    border: 1px solid black;
+    width: 40%;
+    height: 10%;
+    justify-content: space-evenly;
+
+    h3 {
+      width: 50%;
+    }
+
+    button {
+      align-self: center;
+      height: 50%;
+      width: 30%;
+    }
+  }
+}

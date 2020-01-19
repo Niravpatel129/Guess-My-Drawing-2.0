@@ -1,6 +1,6 @@
 const { roomData } = require("./roomData");
 
-class Rooms {
+class AllRoomsGenerator {
   constructor() {
     this.rooms = [];
   }
@@ -26,4 +26,4 @@ class Rooms {
   }
 }
 
-module.exports = { Rooms };
+module.exports = { AllRoomsGenerator };
