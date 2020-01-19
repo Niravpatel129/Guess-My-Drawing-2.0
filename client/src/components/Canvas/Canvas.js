@@ -13,7 +13,6 @@ let socket;
 function Canvas() {
   const userInfo = useSelector(state => state.contactReducer);
   const { name, room } = userInfo;
-  console.log(name, room);
   const canvas = useRef();
 
   useEffect(() => {
@@ -22,13 +21,18 @@ function Canvas() {
     } else {
       socket = io.connect("localhost:5000");
     }
-    socket.emit("joinRoom", room);
+    socket.emit("join", { name, room }, () => {
+      socket.emit("disconnect");
+      alert("Error");
+      socket.off();
+    });
+
     socket.on("updateData", data => {
       if (canvas.current && data) {
         canvas.current.loadSaveData(data, true);
       }
     });
-  }, [room]);
+  }, [room, name]);
 
   return (
     <section className="Canvas">
