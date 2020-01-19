@@ -1,10 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import "./Chat.scss";
 import Message from "../Message/Message";
+import { useSelector } from "react-redux";
+import SocketContext from "../../context";
 
 function Chat() {
+  let { socket } = useContext(SocketContext);
+
   const [messages, addMessage] = useState([]);
   const [input, changeInput] = useState("");
+
+  const { name, room } = useSelector(state => state.contactReducer);
 
   const messagesRef = useRef();
 
@@ -15,6 +21,8 @@ function Chat() {
   const submitMessage = e => {
     if (e.charCode === 13) {
       if (input) {
+        // on key press enter
+        socket.emit("chatMessage", { name, room, input });
         addMessage([
           ...messages,
           <Message message={input} key={messages.length + 1} />

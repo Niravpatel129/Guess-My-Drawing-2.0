@@ -29,6 +29,11 @@ io.on("connection", socket => {
     }
   });
 
+  // get new chat message
+  socket.on("chatMessage", ({ name, room, input }) => {
+    console.log(name, room, input);
+  });
+
   // disconnect room
   socket.on("disonnect", () => {
     console.log("user disconnect");
