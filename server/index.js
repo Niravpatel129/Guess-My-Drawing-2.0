@@ -78,6 +78,13 @@ io.on("connection", socket => {
     AllRooms.removeUser(socket.id);
   });
 
+  // force disconnect user
+  socket.on("disconnectUser", user => {
+    console.log("user disconnect");
+
+    AllRooms.disconnectUser(user);
+  });
+
   // drawing data
   socket.on("drawingData", ({ data, room }) => {
     socket.to(room).emit("updateData", data);

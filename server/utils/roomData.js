@@ -48,6 +48,13 @@ class roomData {
     this.users.splice(removeUserIndex, 1);
   }
 
+  disconnectUser(user) {
+    let removeUserIndex = this.users.findIndex(i => {
+      return i.id === user.googleId;
+    });
+    this.users.splice(removeUserIndex, 1);
+  }
+
   getAllUsersInRoom() {
     return this.users;
   }

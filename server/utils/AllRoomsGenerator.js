@@ -65,6 +65,14 @@ class AllRoomsGenerator {
     }
   }
 
+  disconnectUser(user) {
+    this.clearEmptyRooms();
+    for (let room of this.rooms) {
+      const find = room.users.find(i => user.googleId === i.id);
+      if (find) room.disconnectUser(user);
+    }
+  }
+
   clearEmptyRooms() {
     for (let i = 0; i < this.rooms.length; i++) {
       if (this.rooms[i].users.length === 0) {
