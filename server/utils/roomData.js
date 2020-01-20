@@ -3,6 +3,7 @@ class gameData {
     this.scores = [];
     this.timer = 0;
     this.turn = null;
+    this.word = "Shirt";
   }
 }
 
