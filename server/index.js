@@ -22,28 +22,36 @@ io.on("connection", socket => {
 
   // join room
   socket.on("join", ({ name, room, googleUserInfo }, callback) => {
-    let error = false;
-    const messages = AllRooms.getAllMessages(room);
-    AllRooms.newRoom(room); // make a new room
-    // find room and add user
-    const isNewUser = AllRooms.findUserAndAddToRoom(room, {
-      googleUserInfo,
-      socketId: socket
-    });
+    if (!googleUserInfo) {
+      callback("You need to login first, GUEST MODE IS NOT ENABLED YET!");
+    } else {
+      let error = false;
+      const messages = AllRooms.getAllMessages(room);
+      AllRooms.newRoom(room); // make a new room
+      // find room and add user
+      const isNewUser = AllRooms.findUserAndAddToRoom(room, {
+        googleUserInfo,
+        socketId: socket
+      });
 
-    if (error || !isNewUser) {
-      callback("Account already playing!");
-    }
+      if (!googleUserInfo) {
+        callback("You need to login first, GUEST MODE IS NOT ENABLED YET!");
+      }
 
-    // get all rooms
-    socket.join(room);
-    io.in(room).emit("updateMessage", messages);
+      if (error || !isNewUser) {
+        callback("Account already playing!");
+      }
 
-    // get all users in room
-    io.in(room).emit("getAllUsers", AllRooms.findAllUsersForRoom(room));
+      // get all rooms
+      socket.join(room);
+      io.in(room).emit("updateMessage", messages);
 
-    if (error) {
-      callback();
+      // get all users in room
+      io.in(room).emit("getAllUsers", AllRooms.findAllUsersForRoom(room));
+
+      if (error) {
+        callback();
+      }
     }
   });
 
