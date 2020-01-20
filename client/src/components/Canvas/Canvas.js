@@ -23,7 +23,7 @@ function Canvas() {
 
   useEffect(() => {
     socket.emit("join", { name, room, googleUserInfo }, err => {
-      socket.emit("disconnect", googleUserInfo);
+      socket.emit("disconnect");
       alert(err || "not sure of the error");
       socket.off();
       history.push("/");
@@ -38,7 +38,7 @@ function Canvas() {
 
   useEffect(() => {
     return () => {
-      socket.emit("disconnect", googleUserInfo);
+      socket.emit("disconnect");
       console.log("will unmount");
     };
   }, [socket, googleUserInfo]);

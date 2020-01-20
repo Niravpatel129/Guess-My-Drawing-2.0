@@ -1,6 +1,6 @@
-var app = require("express")();
-var server = require("http").Server(app);
-var io = require("socket.io")(server);
+const app = require("express")();
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
 
 const router = require("./router");
 
@@ -11,6 +11,8 @@ const { AllRoomsGenerator } = require("./utils/AllRoomsGenerator");
 
 const AllRooms = new AllRoomsGenerator();
 
+let globalSocket;
+
 server.listen(PORT, () => {
   console.log("Server started on port", PORT);
 });
@@ -18,6 +20,7 @@ server.listen(PORT, () => {
 app.use(router);
 
 io.on("connection", socket => {
+  globalSocket = socket;
   console.log("connected");
 
   // join room
@@ -80,3 +83,9 @@ io.on("connection", socket => {
     socket.to(room).emit("updateData", data);
   });
 });
+
+const timer = setInterval(() => {
+  if (AllRooms.rooms.length !== 0) {
+    globalSocket.emit("sendTime", AllRooms.rooms);
+  }
+}, 1000);
