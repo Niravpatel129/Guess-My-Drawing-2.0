@@ -14,6 +14,18 @@ class roomData {
     this.gameData = new gameData();
   }
 
+  // game start
+  startGame() {
+    console.log("start game");
+    setInterval(() => {
+      this.gameData.timer++;
+    }, 1000);
+  }
+
+  getTimer() {
+    return this.gameData.timer;
+  }
+
   addUser(user) {
     // check if user exists already!
     const find = this.users.find(

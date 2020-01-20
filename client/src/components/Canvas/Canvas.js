@@ -8,6 +8,7 @@ import UserList from "../UserList/UserList";
 import SocketContext from "../../context";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import TimerClock from "../TimerClock/TimerClock";
 
 // let socket;
 
@@ -65,6 +66,7 @@ function Canvas() {
             hideInterface={false}
           />
           <UserList />
+          <TimerClock />
         </div>
       </div>
     </section>
