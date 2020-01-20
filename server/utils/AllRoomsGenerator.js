@@ -13,7 +13,7 @@ class AllRoomsGenerator {
 
   findUserAndAddToRoom(roomName, { googleUserInfo, socketId }) {
     const find = this.rooms.find(i => i.roomId === roomName);
-    if (find) find.addUser({ googleUserInfo, socketId: socketId.id });
+    if (find) return find.addUser({ googleUserInfo, socketId: socketId.id });
   }
 
   findAllUsersForRoom(roomName) {
@@ -42,7 +42,7 @@ class AllRoomsGenerator {
   removeUser(socketId) {
     this.clearEmptyRooms();
     for (let room of this.rooms) {
-      const user = room.users.find(i => i.socketId === socketId);
+      const user = room.users.find(i => i.user.socketId === socketId);
       if (user) room.removeUser(user);
     }
   }

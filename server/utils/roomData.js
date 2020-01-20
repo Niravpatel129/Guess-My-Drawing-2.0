@@ -1,6 +1,6 @@
 class gameData {
   constructor() {
-    this.scores = {};
+    this.scores = [];
     this.timer = 0;
     this.turn = null;
   }
@@ -15,15 +15,22 @@ class roomData {
   }
 
   addUser(user) {
-    console.log("add user");
+    // check if user exists already!
+    const find = this.users.find(
+      i => user.googleUserInfo.googleId === i.user.googleUserInfo.googleId
+    );
 
-    this.users.push(user);
+    if (!find) {
+      this.users.push({ user, points: 0, id: user.googleUserInfo.googleId });
+      return true;
+    } else {
+      return false;
+    }
   }
 
   removeUser(user) {
     console.log("remove user");
     let removeUserIndex = this.users.findIndex(i => {
-      console.log(user);
       return i.socketId === user.socketId;
     });
     this.users.splice(removeUserIndex, 1);

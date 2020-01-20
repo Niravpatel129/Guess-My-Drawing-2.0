@@ -26,11 +26,21 @@ io.on("connection", socket => {
     const messages = AllRooms.getAllMessages(room);
     AllRooms.newRoom(room); // make a new room
     // find room and add user
-    AllRooms.findUserAndAddToRoom(room, { googleUserInfo, socketId: socket });
+    const isNewUser = AllRooms.findUserAndAddToRoom(room, {
+      googleUserInfo,
+      socketId: socket
+    });
+
+    if (error || !isNewUser) {
+      callback("Account already playing!");
+    }
 
     // get all rooms
     socket.join(room);
     io.in(room).emit("updateMessage", messages);
+
+    // get all users in room
+    io.in(room).emit("getAllUsers", AllRooms.findAllUsersForRoom(room));
 
     if (error) {
       callback();
@@ -45,15 +55,15 @@ io.on("connection", socket => {
 
   // get new chat message
   socket.on("chatMessage", ({ name, room, input }) => {
-    console.log(name);
     AllRooms.pushMessage(name, room, input);
     const messages = AllRooms.getAllMessages(room);
     io.in(room).emit("updateMessage", messages);
   });
 
   // disconnect room
-  socket.on("disconnect", () => {
+  socket.on("disconnect", user => {
     console.log("user disconnect");
+
     AllRooms.removeUser(socket.id);
   });
 
