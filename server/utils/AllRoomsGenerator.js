@@ -27,7 +27,6 @@ class AllRoomsGenerator {
 
   pushMessage(name, roomName, input) {
     const find = this.rooms.find(i => i.roomId === roomName);
-    console.log(input);
     if (input === "/start") {
       this.startGameForRoom(roomName);
     }

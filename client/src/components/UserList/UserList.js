@@ -20,6 +20,7 @@ function UserList() {
 
   const renderUser = () => {
     if (users) {
+      console.log(users);
       return users.map((i, index) => {
         return (
           <div className="user-card" key={index}>

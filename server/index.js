@@ -39,12 +39,14 @@ io.on("connection", socket => {
         socketId: socket
       });
 
+      console.log("socketId is already in a room!");
+
       if (!googleUserInfo) {
         callback("You need to login first, GUEST MODE IS NOT ENABLED YET!");
       }
 
-      if (error || !isNewUser) {
-        callback("Account already playing!");
+      if (error) {
+        callback("Error!");
       }
 
       // get all rooms

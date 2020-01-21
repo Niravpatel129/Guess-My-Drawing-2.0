@@ -82,9 +82,7 @@ class roomData {
 
   addUser(user) {
     // check if user exists already!
-    const find = this.users.find(
-      i => user.googleUserInfo.googleId === i.user.googleUserInfo.googleId
-    );
+    const find = this.users.find(i => user.socketId === i.user.socketId);
 
     if (!find) {
       this.users.push({ user, points: 0, id: user.googleUserInfo.googleId });
@@ -97,8 +95,9 @@ class roomData {
   removeUser(user) {
     console.log("remove user");
     let removeUserIndex = this.users.findIndex(i => {
-      return i.socketId === user.socketId;
+      return i.user.socketId === user.user.socketId;
     });
+
     this.users.splice(removeUserIndex, 1);
   }
 
