@@ -2,6 +2,7 @@ const timeLimit = 4;
 
 class gameData {
   constructor() {
+    this.gameStarted = false;
     this.round = 0;
     this.scores = [];
     this.timer = timeLimit;
@@ -22,19 +23,15 @@ class roomData {
   // game start
   startGame() {
     console.log("start game");
-
-    this.setOrignalDrawer();
-
-    this.addRound();
+    this.gameData.gameStarted = true;
+    this.setDrawerList();
   }
 
-  setOrignalDrawer() {
+  setDrawerList() {
     for (let user of this.users) {
       this.gameData.roundPlayers.push(user);
     }
-
-    this.gameData.drawer = this.gameData.roundPlayers[0];
-    this.gameData.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
+    this.nextDrawer();
   }
 
   controlTimer(mode) {
@@ -51,8 +48,11 @@ class roomData {
 
   nextDrawer() {
     if (this.gameData.roundPlayers.length > 0) {
+      console.log("Deciding next drawer");
       this.gameData.drawer = this.gameData.roundPlayers[0];
       this.gameData.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
+      this.gameData.timer = timeLimit;
+      this.controlTimer("start");
     } else {
       this.addRound();
     }
@@ -62,12 +62,10 @@ class roomData {
     if (this.gameData.round >= 3) {
       this.endGame();
     } else {
-      this.gameData.timer = timeLimit;
-      this.setNewDrawWord();
-      console.log("new Round");
+      console.log("Everyone for this round has drawn!");
 
       this.gameData.round++;
-      this.controlTimer("start");
+      this.setDrawerList();
     }
   }
 
@@ -80,6 +78,7 @@ class roomData {
   }
   endGame() {
     console.log("WIP end game");
+    this.gameData.gameStarted = false;
     this.gameData = new gameData();
     this.controlTimer("stop");
   }
