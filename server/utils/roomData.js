@@ -90,9 +90,16 @@ class roomData {
 
   addUser(user) {
     // check if user exists already!
-    const find = this.users.find(i => user.socketId === i.user.socketId);
+    const find = this.users.find(i => {
+      return user.socketId === i.user.socketId;
+    });
 
-    if (!find) {
+    // add google user to lobby!
+    const find2 = this.users.find(i => {
+      return user.googleUserInfo.googleId === i.user.googleUserInfo.googleId;
+    });
+
+    if (!find && !find2) {
       this.users.push({ user, points: 0, id: user.googleUserInfo.googleId });
 
       return true;

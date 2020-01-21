@@ -25,8 +25,6 @@ io.on("connection", socket => {
 
   // join room
   socket.on("join", ({ name, room, googleUserInfo }, callback) => {
-    // find and kick user from previous room!!
-
     if (!googleUserInfo) {
       callback("You need to login first, GUEST MODE IS NOT ENABLED YET!");
     } else {
