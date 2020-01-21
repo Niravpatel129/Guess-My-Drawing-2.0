@@ -11,3 +11,10 @@ export const UserInfo = user => {
     payload: user
   };
 };
+
+export const showNotification = val => {
+  return {
+    type: "SET_NOTIFICATION",
+    payload: val
+  };
+};

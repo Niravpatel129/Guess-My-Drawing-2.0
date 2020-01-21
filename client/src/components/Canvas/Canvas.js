@@ -6,7 +6,7 @@ import CanvasDraw from "react-canvas-draw";
 import Chat from "../Chat/Chat";
 import UserList from "../UserList/UserList";
 import SocketContext from "../../context";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import TimerClock from "../TimerClock/TimerClock";
 import WordBlock from "../WordBlock/WordBlock";
@@ -19,10 +19,12 @@ function Canvas() {
   const { name, room } = useSelector(state => state.contactReducer);
   const history = useHistory();
   const googleUserInfo = localStorageData;
-
   const canvas = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch({ type: "SET_NOTIFICATION", payload: true });
+
     socket.emit("join", { name, room, googleUserInfo }, err => {
       alert(err || "not sure of the error");
       socket.emit("disconnectUser", googleUserInfo);
@@ -35,7 +37,7 @@ function Canvas() {
         canvas.current.loadSaveData(data, true);
       }
     });
-  }, [room, name, socket, localStorageData, history, googleUserInfo]);
+  }, [room, name, socket, localStorageData, history, googleUserInfo, dispatch]);
 
   useEffect(() => {
     return () => {
