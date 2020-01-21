@@ -66,6 +66,10 @@ io.on("connection", socket => {
   });
 
   socket.on("gameStart", room => {
+    io.of("/")
+      .to(room)
+      .emit("gameStart", room);
+
     AllRooms.gameStart(room);
   });
 
