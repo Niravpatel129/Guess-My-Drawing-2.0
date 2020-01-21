@@ -30,8 +30,19 @@ const notificationDisplayReducer = (state = false, action) => {
   }
 };
 
+const notificationMessageReducer = (state = "", action) => {
+  // Do somethin
+  switch (action.type) {
+    case "SET_MESSAGE":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   contactReducer,
   userInfoReducer,
-  notificationDisplayReducer
+  notificationDisplayReducer,
+  notificationMessageReducer
 });

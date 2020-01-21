@@ -23,19 +23,33 @@ function Canvas() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: "SET_NOTIFICATION", payload: true });
-
-    socket.emit("join", { name, room, googleUserInfo }, err => {
-      alert(err || "not sure of the error");
-      socket.emit("disconnectUser", googleUserInfo);
+    console.log(googleUserInfo);
+    if (!googleUserInfo) {
       socket.off();
-      history.push("/");
-    });
+      history.push("/login");
+      alert("Login first please!");
+    } else {
+      socket.emit(
+        "join",
+        { name: googleUserInfo.name, room, googleUserInfo },
+        err => {
+          alert(err || "not sure of the error");
+          socket.emit("disconnectUser", googleUserInfo);
+          socket.off();
+          history.push("/");
+        }
+      );
+    }
 
     socket.on("updateData", data => {
       if (canvas.current && data) {
         canvas.current.loadSaveData(data, true);
       }
+    });
+
+    socket.on("newJoinNotification", name => {
+      dispatch({ type: "SET_NOTIFICATION", payload: true });
+      dispatch({ type: "SET_MESSAGE", payload: `${name} has joined the room` });
     });
   }, [room, name, socket, localStorageData, history, googleUserInfo, dispatch]);
 

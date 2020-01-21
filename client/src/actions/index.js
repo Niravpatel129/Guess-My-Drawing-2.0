@@ -1,4 +1,4 @@
-export const setInfo = user => {
+export const SetInfo = user => {
   return {
     type: "SET_INFO",
     payload: user
@@ -12,9 +12,16 @@ export const UserInfo = user => {
   };
 };
 
-export const showNotification = val => {
+export const SetNotification = val => {
   return {
     type: "SET_NOTIFICATION",
+    payload: val
+  };
+};
+
+export const SetNotification = val => {
+  return {
+    type: "SET_MESSAGE",
     payload: val
   };
 };

@@ -28,6 +28,8 @@ io.on("connection", socket => {
     if (!googleUserInfo) {
       callback("You need to login first, GUEST MODE IS NOT ENABLED YET!");
     } else {
+      socket.to(room).emit("newJoinNotification", name);
+
       let error = false;
       const messages = AllRooms.getAllMessages(room);
       AllRooms.newRoom(room); // make a new room
@@ -36,8 +38,6 @@ io.on("connection", socket => {
         googleUserInfo,
         socketId: socket
       });
-
-      console.log("socketId is already in a room!");
 
       if (!googleUserInfo) {
         callback("You need to login first, GUEST MODE IS NOT ENABLED YET!");

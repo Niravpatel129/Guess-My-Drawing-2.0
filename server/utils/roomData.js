@@ -76,7 +76,7 @@ class roomData {
 
     const number = Math.floor(Math.random() * words.length);
 
-    this.gameData.words[number];
+    this.gameData.word = words[number];
   }
   endGame() {
     console.log("WIP end game");
