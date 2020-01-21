@@ -63,6 +63,7 @@ class roomData {
       this.endGame();
     } else {
       this.gameData.timer = timeLimit;
+      this.setNewDrawWord();
       console.log("new Round");
 
       this.gameData.round++;
@@ -70,6 +71,13 @@ class roomData {
     }
   }
 
+  setNewDrawWord() {
+    const words = ["Rock", "Paper", "Scissors", "Dog", "Tom", "Jerry"];
+
+    const number = Math.floor(Math.random() * words.length);
+
+    this.gameData.words[number];
+  }
   endGame() {
     console.log("WIP end game");
     this.gameData = new gameData();
