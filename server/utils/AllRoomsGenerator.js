@@ -42,6 +42,11 @@ class AllRoomsGenerator {
     if (find) return find.getAllMessages();
   }
 
+  gameStart(roomName) {
+    const find = this.rooms.find(i => i.roomId === roomName);
+    if (find) this.startGameForRoom(roomName);
+  }
+
   getTimeForRoom(roomName) {
     const find = this.rooms.find(i => i.roomId === roomName);
     if (find) return find.getTimer();

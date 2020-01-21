@@ -62,8 +62,11 @@ io.on("connection", socket => {
 
   // socket on get userlist
   socket.on("getUserList", room => {
-    console.log("hii");
     io.in(room).emit("getAllUsers", AllRooms.findAllUsersForRoom(room));
+  });
+
+  socket.on("gameStart", room => {
+    AllRooms.gameStart(room);
   });
 
   // get all rooms

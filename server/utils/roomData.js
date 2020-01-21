@@ -5,7 +5,7 @@ class gameData {
     this.round = 0;
     this.scores = [];
     this.timer = timeLimit;
-    this.drawer;
+    this.drawer = "";
     this.word = "Shirt";
     this.roundPlayers = [];
   }
