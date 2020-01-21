@@ -25,6 +25,8 @@ io.on("connection", socket => {
 
   // join room
   socket.on("join", ({ name, room, googleUserInfo }, callback) => {
+    // find and kick user from previous room!!
+
     if (!googleUserInfo) {
       callback("You need to login first, GUEST MODE IS NOT ENABLED YET!");
     } else {
@@ -58,6 +60,12 @@ io.on("connection", socket => {
     }
   });
 
+  // socket on get userlist
+  socket.on("getUserList", room => {
+    console.log("hii");
+    io.in(room).emit("getAllUsers", AllRooms.findAllUsersForRoom(room));
+  });
+
   // get all rooms
   socket.on("getAllRooms", () => {
     AllRooms.clearEmptyRooms();
@@ -75,13 +83,15 @@ io.on("connection", socket => {
   socket.on("disconnect", user => {
     console.log("user disconnect");
 
+    socket.broadcast.emit("checkUserListAgain");
+
     AllRooms.removeUser(socket.id);
   });
 
   // force disconnect user
   socket.on("disconnectUser", user => {
     console.log("user disconnect");
-
+    socket.broadcast.emit("checkUserListAgain");
     AllRooms.disconnectUser(user);
   });
 
@@ -93,6 +103,6 @@ io.on("connection", socket => {
 
 const timer = setInterval(() => {
   if (AllRooms.rooms.length !== 0) {
-    globalSocket.emit("sendTime", AllRooms.rooms);
+    io.of("/").emit("sendTime", AllRooms.rooms);
   }
 }, 1000);

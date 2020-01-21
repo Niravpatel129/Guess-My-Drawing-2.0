@@ -1,9 +1,13 @@
+const timeLimit = 4;
+
 class gameData {
   constructor() {
+    this.round = 0;
     this.scores = [];
-    this.timer = 0;
-    this.turn = null;
+    this.timer = timeLimit;
+    this.drawer;
     this.word = "Shirt";
+    this.roundPlayers = [];
   }
 }
 
@@ -18,9 +22,58 @@ class roomData {
   // game start
   startGame() {
     console.log("start game");
-    setInterval(() => {
-      this.gameData.timer++;
-    }, 1000);
+
+    this.setOrignalDrawer();
+
+    this.addRound();
+  }
+
+  setOrignalDrawer() {
+    for (let user of this.users) {
+      this.gameData.roundPlayers.push(user);
+    }
+
+    this.gameData.drawer = this.gameData.roundPlayers[0];
+    this.gameData.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
+  }
+
+  controlTimer(mode) {
+    if (mode === "start") {
+      const timerInterval = setInterval(() => {
+        this.gameData.timer--;
+        if (this.gameData.timer < 0 || mode === "stop") {
+          clearInterval(timerInterval);
+          this.nextDrawer();
+        }
+      }, 1000);
+    }
+  }
+
+  nextDrawer() {
+    if (this.gameData.roundPlayers.length > 0) {
+      this.gameData.drawer = this.gameData.roundPlayers[0];
+      this.gameData.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
+    } else {
+      this.addRound();
+    }
+  }
+
+  addRound() {
+    if (this.gameData.round >= 3) {
+      this.endGame();
+    } else {
+      this.gameData.timer = timeLimit;
+      console.log("new Round");
+
+      this.gameData.round++;
+      this.controlTimer("start");
+    }
+  }
+
+  endGame() {
+    console.log("WIP end game");
+    this.gameData = new gameData();
+    this.controlTimer("stop");
   }
 
   getTimer() {

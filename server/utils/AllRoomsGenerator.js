@@ -27,7 +27,7 @@ class AllRoomsGenerator {
 
   pushMessage(name, roomName, input) {
     const find = this.rooms.find(i => i.roomId === roomName);
-
+    console.log(input);
     if (input === "/start") {
       this.startGameForRoom(roomName);
     }
@@ -67,9 +67,12 @@ class AllRoomsGenerator {
 
   disconnectUser(user) {
     this.clearEmptyRooms();
-    for (let room of this.rooms) {
-      const find = room.users.find(i => user.googleId === i.id);
-      if (find) room.disconnectUser(user);
+
+    if (user && user.googleId) {
+      for (let room of this.rooms) {
+        const find = room.users.find(i => user.googleId === i.id);
+        if (find) room.disconnectUser(user);
+      }
     }
   }
 
