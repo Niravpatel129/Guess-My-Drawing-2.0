@@ -86,6 +86,7 @@ class roomData {
 
     if (!find) {
       this.users.push({ user, points: 0, id: user.googleUserInfo.googleId });
+
       return true;
     } else {
       return false;
