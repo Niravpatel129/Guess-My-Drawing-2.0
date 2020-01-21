@@ -11,6 +11,15 @@ function UserList() {
   const { room } = useSelector(state => state.contactReducer);
 
   useEffect(() => {
+    if (roomData) {
+      if (users.length >= 2 && !roomData.gameData.gameStarted) {
+        console.log("start pl0x");
+        socket.emit("gameStart", room);
+      }
+    }
+  }, [users, roomData, socket, room]);
+
+  useEffect(() => {
     socket.on("checkUserListAgain", () => {
       socket.emit("getUserList", room);
     });

@@ -23,8 +23,10 @@ class roomData {
   // game start
   startGame() {
     console.log("start game");
-    this.gameData.gameStarted = true;
-    this.setDrawerList();
+    if (!this.gameData.gameStarted) {
+      this.gameData.gameStarted = true;
+      this.setDrawerList();
+    }
   }
 
   setDrawerList() {
