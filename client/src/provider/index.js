@@ -18,7 +18,7 @@ const SocketProvider = props => {
     socket.on("connected", () => {
       dispatch({ type: "TOGGLE_LOADING_SPINNER", payload: false });
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <SocketContext.Provider value={{ socket }}>
