@@ -57,6 +57,11 @@ io.on("connection", socket => {
     }
   });
 
+  // guessed correct
+  socket.on("guessedCorrect", ({ user, room }) => {
+    AllRooms.guessedCorrect(user, room);
+  });
+
   // socket on get userlist
   socket.on("getUserList", room => {
     io.in(room).emit("getAllUsers", AllRooms.findAllUsersForRoom(room));
@@ -81,6 +86,7 @@ io.on("connection", socket => {
     AllRooms.pushMessage(name, room, input);
     const messages = AllRooms.getAllMessages(room);
     io.in(room).emit("updateMessage", messages);
+    io.in(room).emit("getAllUsers", AllRooms.findAllUsersForRoom(room));
   });
 
   // disconnect room

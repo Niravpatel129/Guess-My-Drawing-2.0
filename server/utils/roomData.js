@@ -10,6 +10,7 @@ class gameData {
     this.word = "Shirt";
     this.roundPlayers = [];
     this.roundEnded = false;
+    this.usersWhoGussedCorrect = [];
   }
 }
 
@@ -19,6 +20,20 @@ class roomData {
     this.users = [];
     this.messages = [];
     this.gameData = new gameData();
+  }
+
+  guessedCorrect(user) {
+    const find = this.gameData.usersWhoGussedCorrect.find(i => {
+      return i === user.googleId;
+    });
+
+    if (!find) {
+      this.gameData.usersWhoGussedCorrect.push(user.googleId);
+      const addPoints = this.users.find(i => {
+        return user.googleId === i.user.googleUserInfo.googleId;
+      });
+      console.log((addPoints.points += 10));
+    }
   }
 
   // game start
@@ -66,6 +81,7 @@ class roomData {
   }
 
   addRound() {
+    this.gameData.usersWhoGussedCorrect = [];
     if (this.gameData.round >= 3 || this.users.length <= 1) {
       this.endGame();
     } else {
@@ -86,7 +102,7 @@ class roomData {
 
     const number = Math.floor(Math.random() * words.length);
 
-    this.gameData.word = words[number];
+    this.gameData.word = words[3];
   }
 
   endGame() {

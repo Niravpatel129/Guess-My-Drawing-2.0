@@ -37,6 +37,11 @@ class AllRoomsGenerator {
     if (find) find.addMessage(name, input);
   }
 
+  guessedCorrect(user, roomName) {
+    const find = this.rooms.find(i => i.roomId === roomName);
+    if (find) return find.guessedCorrect(user);
+  }
+
   getAllMessages(roomName) {
     const find = this.rooms.find(i => i.roomId === roomName);
     if (find) return find.getAllMessages();

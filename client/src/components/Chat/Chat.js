@@ -9,13 +9,20 @@ function Chat() {
 
   const [msg, addMsg] = useState([]);
   const [input, changeInput] = useState("");
-
+  const [drawWord, setDrawWord] = useState("");
   const localStorageData = JSON.parse(localStorage.getItem("loginUserInfo"));
 
   const { room } = useSelector(state => state.contactReducer);
   const canDraw = useSelector(state => state.canDrawReducer);
 
   const messagesRef = useRef();
+
+  useEffect(() => {
+    socket.on("sendTime", res => {
+      const draw = res.find(i => i.roomId === room);
+      setDrawWord(draw.gameData.word);
+    });
+  }, [room, socket, drawWord]);
 
   useEffect(() => {
     socket.on("updateMessage", res => {
@@ -34,6 +41,10 @@ function Chat() {
   const submitMessage = e => {
     if (e.charCode === 13) {
       if (input) {
+        if (input.toUpperCase() === drawWord.toUpperCase()) {
+          socket.emit("guessedCorrect", { user: localStorageData, room });
+        }
+
         socket.emit("chatMessage", { name: localStorageData, room, input });
       }
       changeInput("");
