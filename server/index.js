@@ -59,11 +59,13 @@ io.on("connection", socket => {
   });
 
   socket.on("gameStart", room => {
-    io.of("/")
-      .to(room)
-      .emit("gameStart", room);
+    setTimeout(() => {
+      io.of("/")
+        .to(room)
+        .emit("gameStart", room);
 
-    AllRooms.gameStart(room);
+      AllRooms.gameStart(room);
+    }, 1000);
   });
 
   // get all rooms

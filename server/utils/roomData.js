@@ -30,6 +30,10 @@ class roomData {
   }
 
   setDrawerList() {
+    if (this.users.length <= 1) {
+      this.endGame;
+    }
+
     for (let user of this.users) {
       this.gameData.roundPlayers.push(user);
     }
