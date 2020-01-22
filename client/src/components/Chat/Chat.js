@@ -13,6 +13,7 @@ function Chat() {
   const localStorageData = JSON.parse(localStorage.getItem("loginUserInfo"));
 
   const { room } = useSelector(state => state.contactReducer);
+  const canDraw = useSelector(state => state.canDrawReducer);
 
   const messagesRef = useRef();
 
@@ -53,22 +54,31 @@ function Chat() {
       });
   };
 
-  return (
-    <div className="Chat">
-      <div className="title">
-        <h1>ChatBox</h1>
+  const Chat = () => {
+    let placeholder = " ✏️";
+    if (canDraw) {
+      placeholder = "You are drawing!";
+    }
+    return (
+      <div className="Chat">
+        <div className="title">
+          <h1>ChatBox</h1>
+        </div>
+        <div className="messages" ref={messagesRef}>
+          {renderMessage()}
+        </div>
+        <input
+          value={input}
+          onChange={e => changeInput(e.target.value)}
+          onKeyPress={submitMessage}
+          placeholder={placeholder}
+          disabled={canDraw}
+        ></input>
       </div>
-      <div className="messages" ref={messagesRef}>
-        {renderMessage()}
-      </div>
-      <input
-        value={input}
-        onChange={e => changeInput(e.target.value)}
-        onKeyPress={submitMessage}
-        placeholder=" ✏️"
-      ></input>
-    </div>
-  );
+    );
+  };
+
+  return <React.Fragment>{Chat()}</React.Fragment>;
 }
 
 export default Chat;

@@ -43,7 +43,6 @@ class roomData {
   }
 
   setDrawerList() {
-    console.log("init draw list");
     if (this.users.length <= 1) {
       this.endGame();
     }
@@ -57,7 +56,6 @@ class roomData {
     if (this.gameData.roundPlayers.length > 0) {
       this.gameData.roundEnded = true;
       this.setNewDrawWord();
-      console.log(this.gameData.roundPlayers.length, "drawers left");
       this.gameData.drawer = this.gameData.roundPlayers[0];
       this.gameData.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
       this.gameData.timer = timeLimit;
@@ -68,15 +66,10 @@ class roomData {
   }
 
   addRound() {
-    console.log("We are on round", this.gameData.round);
-    if (this.gameData.round >= 3) {
+    if (this.gameData.round >= 3 || this.users.length <= 1) {
       this.endGame();
     } else {
       console.log("Everyone for this round has drawn!");
-
-      if (this.users.length <= 1) {
-        this.endGame();
-      }
 
       this.gameData.round++;
       this.setDrawerList();
