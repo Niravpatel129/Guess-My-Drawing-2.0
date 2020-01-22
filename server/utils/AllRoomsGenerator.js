@@ -30,6 +30,9 @@ class AllRoomsGenerator {
     if (input === "/start") {
       this.startGameForRoom(roomName);
     }
+    if (input === "/stop") {
+      find.stopGame();
+    }
     if (input === "/time") {
       this.getTimeForRoom(roomName);
     }

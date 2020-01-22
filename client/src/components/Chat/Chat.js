@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import "./Chat.scss";
 import Message from "../Message/Message";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import SocketContext from "../../context";
 
 function Chat() {
   let { socket } = useContext(SocketContext);
-
+  const dispatch = useDispatch();
   const [msg, addMsg] = useState([]);
   const [input, changeInput] = useState("");
   const [drawWord, setDrawWord] = useState("");
@@ -43,9 +43,17 @@ function Chat() {
       if (input) {
         if (input.toUpperCase() === drawWord.toUpperCase()) {
           socket.emit("guessedCorrect", { user: localStorageData, room });
-        }
+          dispatch({ type: "SET_NOTIFICATION", payload: true });
+          dispatch({ type: "SET_MESSAGE", payload: `You gussed the word! ` });
 
-        socket.emit("chatMessage", { name: localStorageData, room, input });
+          socket.emit("chatMessage", {
+            name: localStorageData,
+            room,
+            input: ":star::star::star:CORRECT:star::star::star:"
+          });
+        } else {
+          socket.emit("chatMessage", { name: localStorageData, room, input });
+        }
       }
       changeInput("");
     }

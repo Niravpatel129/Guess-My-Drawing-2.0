@@ -1,4 +1,5 @@
 const timeLimit = 25;
+let timer;
 
 class gameData {
   constructor() {
@@ -32,28 +33,40 @@ class roomData {
       const addPoints = this.users.find(i => {
         return user.googleId === i.user.googleUserInfo.googleId;
       });
-      console.log((addPoints.points += 10));
+      addPoints.points += 10;
+
+      if (
+        this.gameData.usersWhoGussedCorrect.length ===
+        this.users.length - 1
+      ) {
+        this.nextDrawer();
+      }
     }
   }
 
   // game start
   startGame() {
-    console.log("start game");
     if (!this.gameData.gameStarted) {
       this.gameData.gameStarted = true;
       this.addRound();
     }
   }
 
+  stopGame() {
+    this.controlTimer("stop");
+  }
+
   controlTimer(mode) {
     if (mode === "start") {
-      const timerInterval = setInterval(() => {
+      timer = setInterval(() => {
         this.gameData.timer--;
         if (this.gameData.timer < 0 || mode === "stop") {
-          clearInterval(timerInterval);
+          clearInterval(timer);
           this.nextDrawer();
         }
       }, 1000);
+    } else {
+      clearInterval(timer);
     }
   }
 
@@ -68,12 +81,14 @@ class roomData {
   }
 
   nextDrawer() {
+    this.gameData.usersWhoGussedCorrect = [];
     if (this.gameData.roundPlayers.length > 0) {
       this.gameData.roundEnded = true;
       this.setNewDrawWord();
       this.gameData.drawer = this.gameData.roundPlayers[0];
       this.gameData.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
       this.gameData.timer = timeLimit;
+      this.controlTimer("stop");
       this.controlTimer("start");
     } else {
       this.addRound();
@@ -81,12 +96,9 @@ class roomData {
   }
 
   addRound() {
-    this.gameData.usersWhoGussedCorrect = [];
     if (this.gameData.round >= 3 || this.users.length <= 1) {
       this.endGame();
     } else {
-      console.log("Everyone for this round has drawn!");
-
       this.gameData.round++;
       this.setDrawerList();
       this.nextDrawer();
@@ -102,11 +114,11 @@ class roomData {
 
     const number = Math.floor(Math.random() * words.length);
 
-    this.gameData.word = words[3];
+    this.gameData.word = words[number];
   }
 
   endGame() {
-    console.log("WIP end game");
+    console.log("END");
     this.gameData.gameStarted = false;
     this.gameData = new gameData();
     this.controlTimer("stop");
@@ -137,7 +149,6 @@ class roomData {
   }
 
   removeUser(user) {
-    console.log("remove user");
     let removeUserIndex = this.users.findIndex(i => {
       return i.user.socketId === user.user.socketId;
     });
