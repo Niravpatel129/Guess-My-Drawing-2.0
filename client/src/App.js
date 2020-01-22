@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import { BrowserRouter, Route } from "react-router-dom";
@@ -11,10 +11,14 @@ import Login from "./components/Login/Login";
 import Logout from "./components/Logout/Logout";
 import NotificationModule from "./components/NotificationModule/NotificationModule";
 
+import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
+import { useSelector } from "react-redux";
+
 function App() {
   return (
     <SocketProvider>
       <div className="App">
+        <LoadingSpinner />
         <NotificationModule />
         <BrowserRouter>
           <Route path="/" exact>
