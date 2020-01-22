@@ -77,11 +77,6 @@ class roomData {
         this.endGame();
       }
 
-      if (this.gameData.roundPlayers.length) {
-      } else {
-        this.endGame;
-      }
-
       this.gameData.round++;
       this.setDrawerList();
       this.nextDrawer();

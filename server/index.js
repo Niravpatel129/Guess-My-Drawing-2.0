@@ -110,7 +110,7 @@ const timer = setInterval(() => {
     io.of("/").emit("sendTime", AllRooms.rooms);
   }
 
-  for (room of AllRooms.rooms) {
+  for (let room of AllRooms.rooms) {
     if (room.gameData.roundEnded) {
       room.gameData.roundEnded = false;
       io.of("/")
