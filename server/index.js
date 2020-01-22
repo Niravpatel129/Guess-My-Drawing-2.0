@@ -11,6 +11,8 @@ const { AllRoomsGenerator } = require("./utils/AllRoomsGenerator");
 
 const AllRooms = new AllRoomsGenerator();
 
+let globalSocket;
+
 server.listen(PORT, () => {
   console.log("Server started on port", PORT);
 });
@@ -18,6 +20,8 @@ server.listen(PORT, () => {
 app.use(router);
 
 io.on("connection", socket => {
+  globalSocket = socket;
+
   socket.emit("connected");
 
   // join room
@@ -80,7 +84,7 @@ io.on("connection", socket => {
   });
 
   // disconnect room
-  socket.on("disconnect", user => {
+  socket.on("disconnect", () => {
     console.log("user disconnect");
 
     socket.broadcast.emit("checkUserListAgain");
@@ -104,5 +108,14 @@ io.on("connection", socket => {
 const timer = setInterval(() => {
   if (AllRooms.rooms.length !== 0) {
     io.of("/").emit("sendTime", AllRooms.rooms);
+  }
+
+  for (room of AllRooms.rooms) {
+    if (room.gameData.roundEnded) {
+      room.gameData.roundEnded = false;
+      io.of("/")
+        .to(room.roomId)
+        .emit("roundEnded");
+    }
   }
 }, 1000);

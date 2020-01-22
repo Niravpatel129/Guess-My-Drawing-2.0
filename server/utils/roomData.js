@@ -1,4 +1,4 @@
-const timeLimit = 4;
+const timeLimit = 25;
 
 class gameData {
   constructor() {
@@ -9,6 +9,7 @@ class gameData {
     this.drawer = "";
     this.word = "Shirt";
     this.roundPlayers = [];
+    this.roundEnded = false;
   }
 }
 
@@ -25,19 +26,8 @@ class roomData {
     console.log("start game");
     if (!this.gameData.gameStarted) {
       this.gameData.gameStarted = true;
-      this.setDrawerList();
+      this.addRound();
     }
-  }
-
-  setDrawerList() {
-    if (this.users.length <= 1) {
-      this.endGame;
-    }
-
-    for (let user of this.users) {
-      this.gameData.roundPlayers.push(user);
-    }
-    this.nextDrawer();
   }
 
   controlTimer(mode) {
@@ -52,8 +42,20 @@ class roomData {
     }
   }
 
+  setDrawerList() {
+    console.log("init draw list");
+    if (this.users.length <= 1) {
+      this.endGame();
+    }
+
+    for (let user of this.users) {
+      this.gameData.roundPlayers.push(user);
+    }
+  }
+
   nextDrawer() {
     if (this.gameData.roundPlayers.length > 0) {
+      this.gameData.roundEnded = true;
       console.log(this.gameData.roundPlayers.length, "drawers left");
       this.gameData.drawer = this.gameData.roundPlayers[0];
       this.gameData.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
@@ -65,14 +67,29 @@ class roomData {
   }
 
   addRound() {
+    console.log("We are on round", this.gameData.round);
     if (this.gameData.round >= 3) {
       this.endGame();
     } else {
       console.log("Everyone for this round has drawn!");
 
+      if (this.users.length <= 1) {
+        this.endGame();
+      }
+
+      if (this.gameData.roundPlayers.length) {
+      } else {
+        this.endGame;
+      }
+
       this.gameData.round++;
       this.setDrawerList();
+      this.nextDrawer();
     }
+  }
+
+  toggleRoundEnd() {
+    this.gameData.roundEnded = false;
   }
 
   setNewDrawWord() {
@@ -82,6 +99,7 @@ class roomData {
 
     this.gameData.word = words[number];
   }
+
   endGame() {
     console.log("WIP end game");
     this.gameData.gameStarted = false;
