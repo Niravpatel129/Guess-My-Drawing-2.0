@@ -56,6 +56,7 @@ class roomData {
   nextDrawer() {
     if (this.gameData.roundPlayers.length > 0) {
       this.gameData.roundEnded = true;
+      this.setNewDrawWord();
       console.log(this.gameData.roundPlayers.length, "drawers left");
       this.gameData.drawer = this.gameData.roundPlayers[0];
       this.gameData.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
