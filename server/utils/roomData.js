@@ -1,4 +1,4 @@
-const timeLimit = 25;
+const timeLimit = 125;
 let timer;
 
 class gameData {

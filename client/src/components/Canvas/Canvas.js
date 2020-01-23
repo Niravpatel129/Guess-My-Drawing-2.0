@@ -19,6 +19,7 @@ function Canvas() {
   let { socket } = useContext(SocketContext);
   const { name, room } = useSelector(state => state.contactReducer);
   const canDraw = useSelector(state => state.canDrawReducer);
+  const brushColor = useSelector(state => state.ColorReducer);
 
   const history = useHistory();
   const canvas = useRef();
@@ -88,6 +89,7 @@ function Canvas() {
             ref={canvas}
             disabled={!canDraw}
             brushRadius={6}
+            brushColor={brushColor}
             canvasWidth={900}
             canvasHeight={600}
             lazyRadius={0}
