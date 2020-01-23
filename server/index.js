@@ -91,7 +91,7 @@ io.on("connection", socket => {
 
   // disconnect room
   socket.on("disconnect", () => {
-    console.log("user disconnect");
+    console.log("connection disconnect");
 
     socket.broadcast.emit("checkUserListAgain");
 
@@ -100,7 +100,7 @@ io.on("connection", socket => {
 
   // force disconnect user
   socket.on("disconnectUser", user => {
-    console.log("user disconnect");
+    console.log("frontend emitted user disconnect");
     socket.broadcast.emit("checkUserListAgain");
     AllRooms.disconnectUser(user);
   });
