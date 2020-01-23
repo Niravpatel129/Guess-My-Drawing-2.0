@@ -112,7 +112,29 @@ class roomData {
   }
 
   setNewDrawWord() {
-    const words = ["Rock", "Paper", "Scissors", "Dog", "Tom", "Jerry"];
+    const words = [
+      "Box",
+      "Paper",
+      "Scissors",
+      "Dog",
+      "Brush",
+      "Backpack",
+      "Batteries",
+      "Calender",
+      "Match",
+      "Lipstick",
+      "Shark",
+      "fish",
+      "notepad",
+      "televison",
+      "headset",
+      "pen",
+      "ticket",
+      "water",
+      "beach",
+      "dish",
+      "photo"
+    ];
 
     const number = Math.floor(Math.random() * words.length);
 
