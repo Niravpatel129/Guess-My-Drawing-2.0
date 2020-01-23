@@ -84,12 +84,14 @@ class roomData {
     this.gameData.usersWhoGussedCorrect = [];
     if (this.gameData.roundPlayers.length > 0) {
       this.gameData.roundEnded = true;
-      this.setNewDrawWord();
-      this.gameData.drawer = this.gameData.roundPlayers[0];
-      this.gameData.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
-      this.gameData.timer = timeLimit;
-      this.controlTimer("stop");
-      this.controlTimer("start");
+      setTimeout(() => {
+        this.setNewDrawWord();
+        this.gameData.drawer = this.gameData.roundPlayers[0];
+        this.gameData.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
+        this.gameData.timer = timeLimit;
+        this.controlTimer("stop");
+        this.controlTimer("start");
+      }, 1000);
     } else {
       this.addRound();
     }
