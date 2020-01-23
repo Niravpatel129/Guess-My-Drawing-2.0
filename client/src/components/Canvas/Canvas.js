@@ -11,6 +11,7 @@ import { useHistory } from "react-router";
 import TimerClock from "../TimerClock/TimerClock";
 import WordBlock from "../WordBlock/WordBlock";
 import RoomNumber from "../RoomNumber/RoomNumber";
+import ToolBar from "../ToolBar/ToolBar";
 
 // let socket;
 
@@ -25,7 +26,6 @@ function Canvas() {
 
   useEffect(() => {
     socket.on("roundEnded", () => {
-      console.log("round ended clear drawing");
       canvas.current.clear();
     });
 
@@ -72,19 +72,18 @@ function Canvas() {
     };
   }, [socket]);
 
+  const handleMouseDown = () => {
+    socket.emit("drawingData", {
+      data: canvas.current.getSaveData(),
+      room
+    });
+  };
+
   return (
     <section className="Canvas">
       <div className="Container">
         <Chat socket={socket} />
-        <div
-          className="CanvasContainer"
-          onMouseUp={() => {
-            socket.emit("drawingData", {
-              data: canvas.current.getSaveData(),
-              room
-            });
-          }}
-        >
+        <div className="CanvasContainer" onMouseUp={handleMouseDown}>
           <CanvasDraw
             ref={canvas}
             disabled={!canDraw}
@@ -94,6 +93,7 @@ function Canvas() {
             lazyRadius={0}
             hideInterface={true}
           />
+          <ToolBar canvasRef={canvas} handleMouseDown={handleMouseDown} />
           <UserList />
           <TimerClock />
           <WordBlock />
