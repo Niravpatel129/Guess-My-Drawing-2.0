@@ -1,4 +1,4 @@
-const timeLimit = 125;
+const timeLimit = 70;
 let timer;
 
 function capitalizeFirstLetter(string) {
@@ -37,7 +37,7 @@ class roomData {
       const addPoints = this.users.find(i => {
         return user.googleId === i.user.googleUserInfo.googleId;
       });
-      addPoints.points += 10;
+      addPoints.points += Math.round(5 + this.gameData.timer / 3);
 
       if (
         this.gameData.usersWhoGussedCorrect.length ===
@@ -101,17 +101,18 @@ class roomData {
             );
           }
           this.gameData.roundEnded = true;
+          this.controlTimer("stop");
+
+          setTimeout(() => {
+            this.gameData.drawer = this.gameData.roundPlayers[0];
+            this.gameData.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
+            this.gameData.timer = timeLimit;
+            this.setNewDrawWord();
+
+            this.controlTimer("start");
+          }, 1000);
         }, 2500);
       }
-
-      setTimeout(() => {
-        this.setNewDrawWord();
-        this.gameData.drawer = this.gameData.roundPlayers[0];
-        this.gameData.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
-        this.gameData.timer = timeLimit;
-        this.controlTimer("stop");
-        this.controlTimer("start");
-      }, 1000);
     } else {
       this.addRound();
     }
