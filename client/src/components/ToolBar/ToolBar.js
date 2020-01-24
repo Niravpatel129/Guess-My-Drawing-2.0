@@ -15,7 +15,9 @@ function ToolBar({ canvasRef, handleMouseDown }) {
   };
 
   const handleClear = () => {
-    canvasRef.current.clear();
+    if (canvas) {
+      canvasRef.current.clear();
+    }
     handleMouseDown();
   };
 
