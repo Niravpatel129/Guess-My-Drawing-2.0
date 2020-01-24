@@ -99,10 +99,9 @@ class roomData {
                 capitalizeFirstLetter(this.gameData.word)
             );
           }
-        }, 500);
+          this.gameData.roundEnded = true;
+        }, 2500);
       }
-
-      this.gameData.roundEnded = true;
 
       setTimeout(() => {
         this.setNewDrawWord();
