@@ -65,7 +65,7 @@ class roomData {
     if (mode === "start") {
       timer = setInterval(() => {
         this.gameData.timer--;
-        if (this.gameData.timer < 0 || mode === "stop") {
+        if (this.gameData.timer <= 0 || mode === "stop") {
           clearInterval(timer);
           this.nextDrawer();
         }
