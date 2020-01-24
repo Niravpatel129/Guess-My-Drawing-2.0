@@ -117,6 +117,9 @@ const timer = setInterval(() => {
       "updateMessage",
       AllRooms.getAllMessages(room.roomId)
     );
+    if (room.users.length <= 1 && room.gameData.gameStarted) {
+      room.endGame();
+    }
 
     if (room.gameData.roundEnded) {
       room.gameData.roundEnded = false;

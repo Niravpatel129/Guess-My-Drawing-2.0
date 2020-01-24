@@ -12,7 +12,7 @@ class gameData {
     this.scores = [];
     this.timer = timeLimit;
     this.drawer = "";
-    this.word = "";
+    this.word = "SomeWord";
     this.roundPlayers = [];
     this.roundEnded = false;
     this.usersWhoGussedCorrect = [];
@@ -52,6 +52,7 @@ class roomData {
   startGame() {
     if (!this.gameData.gameStarted) {
       this.gameData.gameStarted = true;
+
       this.addRound();
     }
   }
