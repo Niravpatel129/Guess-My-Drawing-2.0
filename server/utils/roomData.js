@@ -1,6 +1,10 @@
 const timeLimit = 125;
 let timer;
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 class gameData {
   constructor() {
     this.gameStarted = false;
@@ -88,9 +92,11 @@ class roomData {
           if (this.gameData.drawer.user) {
             this.addMessage(
               "Admin",
-              this.gameData.drawer.user.googleUserInfo.name +
-                "'s Turn ended: the word was " +
-                this.gameData.word
+              capitalizeFirstLetter(
+                this.gameData.drawer.user.googleUserInfo.name
+              ) +
+                "'s Turn ended: the word was: " +
+                capitalizeFirstLetter(this.gameData.word)
             );
           }
         }, 500);

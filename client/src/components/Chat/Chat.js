@@ -41,7 +41,7 @@ function Chat() {
   const submitMessage = e => {
     if (e.charCode === 13) {
       if (input) {
-        if (input.toUpperCase() === drawWord.toUpperCase()) {
+        if (input.toUpperCase().includes(drawWord.toUpperCase())) {
           socket.emit("guessedCorrect", { user: localStorageData, room });
           dispatch({ type: "SET_NOTIFICATION", payload: true });
           dispatch({ type: "SET_MESSAGE", payload: `You gussed the word! ` });

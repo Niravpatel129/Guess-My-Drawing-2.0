@@ -4,6 +4,8 @@ import "./Message.scss";
 import { EmojioneV4 } from "react-emoji-render";
 
 function Message({ name, message, src, style }) {
+  const adminStyle = {};
+
   return (
     <>
       <div className="MessageContainer" style={style}>
@@ -16,7 +18,7 @@ function Message({ name, message, src, style }) {
         ></img>
         <div className="Message">
           <h4>{name || "ADMIN"}</h4>
-          <p>
+          <p style={adminStyle}>
             <EmojioneV4
               size={64}
               text={message || "You need to enable JavaScript to run this app."}
