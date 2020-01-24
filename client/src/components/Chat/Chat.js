@@ -61,13 +61,23 @@ function Chat() {
   };
 
   const renderMessage = () => {
+    let style;
     if (msg)
       return msg.map((e, index) => {
+        if (e.message === ":star::star::star:CORRECT:star::star::star:") {
+          style = { backgroundColor: "#84BAEE" };
+        } else if (!e.name.name) {
+          style = { backgroundColor: "#EDA1A1", fontWeight: 900 };
+        } else {
+          style = {};
+        }
+
         return (
           <Message
             src={e.name.imageUrl}
             name={e.name.name}
             message={e.message}
+            style={style}
             key={index}
           />
         );
