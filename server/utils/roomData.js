@@ -8,7 +8,7 @@ class gameData {
     this.scores = [];
     this.timer = timeLimit;
     this.drawer = "";
-    this.word = "Shirt";
+    this.word = "";
     this.roundPlayers = [];
     this.roundEnded = false;
     this.usersWhoGussedCorrect = [];
@@ -83,7 +83,17 @@ class roomData {
   nextDrawer() {
     this.gameData.usersWhoGussedCorrect = [];
     if (this.gameData.roundPlayers.length > 0) {
+      if (this.gameData.word) {
+        setTimeout(() => {
+          this.addMessage(
+            "Admin",
+            "Drawer Turn ended: the word was " + this.gameData.word
+          );
+        }, 500);
+      }
+
       this.gameData.roundEnded = true;
+
       setTimeout(() => {
         this.setNewDrawWord();
         this.gameData.drawer = this.gameData.roundPlayers[0];

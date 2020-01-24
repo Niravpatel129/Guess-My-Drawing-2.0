@@ -15,7 +15,7 @@ function Message({ name, message, src }) {
           alt="https://www.w3schools.com/w3images/bandmember.jpg"
         ></img>
         <div className="Message">
-          <h4>{name || "Guest"}</h4>
+          <h4>{name || "Admin"}</h4>
           <p>
             <Emoji
               text={message || "You need to enable JavaScript to run this app."}
