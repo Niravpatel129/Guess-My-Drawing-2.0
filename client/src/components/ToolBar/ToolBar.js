@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./ToolBar.scss";
-import { useSelector, useDispatch } from "react-redux";
 import { TwitterPicker } from "react-color";
+import { useDispatch, useSelector } from "react-redux";
+import "./ToolBar.scss";
 
 function ToolBar({ canvasRef, handleMouseDown }) {
   const [cursorWidth, setWidth] = useState(
