@@ -20,6 +20,7 @@ function Canvas() {
   const { name, room } = useSelector(state => state.contactReducer);
   const canDraw = useSelector(state => state.canDrawReducer);
   const brushColor = useSelector(state => state.ColorReducer);
+  const brushWidth = useSelector(state => state.brushWidthReducer);
 
   const history = useHistory();
   const canvas = useRef();
@@ -97,7 +98,7 @@ function Canvas() {
           <CanvasDraw
             ref={canvas}
             disabled={!canDraw}
-            brushRadius={6}
+            brushRadius={brushWidth}
             brushColor={brushColor}
             canvasWidth={900}
             canvasHeight={600}
