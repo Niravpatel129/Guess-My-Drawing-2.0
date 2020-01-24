@@ -45,6 +45,7 @@ function Chat() {
           socket.emit("guessedCorrect", { user: localStorageData, room });
           dispatch({ type: "SET_NOTIFICATION", payload: true });
           dispatch({ type: "SET_MESSAGE", payload: `You gussed the word! ` });
+          dispatch({ type: "SET_GUESS", payload: true });
 
           socket.emit("chatMessage", {
             name: localStorageData,

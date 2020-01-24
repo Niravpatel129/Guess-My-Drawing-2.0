@@ -34,6 +34,8 @@ function Canvas() {
   useEffect(() => {
     socket.on("roundEnded", () => {
       dispatch({ type: "SET_DRAW", payload: false });
+      dispatch({ type: "SET_GUESS", payload: false });
+
       canvas.current.clear();
     });
 

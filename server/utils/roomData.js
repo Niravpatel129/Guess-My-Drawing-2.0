@@ -85,10 +85,14 @@ class roomData {
     if (this.gameData.roundPlayers.length > 0) {
       if (this.gameData.word) {
         setTimeout(() => {
-          this.addMessage(
-            "Admin",
-            "Drawer Turn ended: the word was " + this.gameData.word
-          );
+          if (this.gameData.drawer.user) {
+            this.addMessage(
+              "Admin",
+              this.gameData.drawer.user.googleUserInfo.name +
+                "'s Turn ended: the word was " +
+                this.gameData.word
+            );
+          }
         }, 500);
       }
 
