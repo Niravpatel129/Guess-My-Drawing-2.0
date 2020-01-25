@@ -106,16 +106,19 @@ class roomData {
     if (this.gameData.roundPlayers.length > 0) {
       if (this.gameData.word) {
         setTimeout(() => {
-          if (this.gameData.drawer.user) {
-            this.addMessage(
-              "Admin",
-              capitalizeFirstLetter(
-                this.gameData.drawer.user.googleUserInfo.name
-              ) +
-                "'s Turn ended: the word was: " +
-                capitalizeFirstLetter(this.gameData.word)
-            );
+          if (this.gameData.drawer) {
+            if (this.gameData.drawer.user) {
+              this.addMessage(
+                "Admin",
+                capitalizeFirstLetter(
+                  this.gameData.drawer.user.googleUserInfo.name
+                ) +
+                  "'s Turn ended: the word was: " +
+                  capitalizeFirstLetter(this.gameData.word)
+              );
+            }
           }
+
           this.gameData.roundEnded = true;
           this.controlTimer("stop");
 
