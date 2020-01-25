@@ -9,6 +9,12 @@ class AllRoomsGenerator {
     const find = this.rooms.find(i => i.roomId === roomName);
     if (!find) {
       this.rooms.push(new roomData(roomName));
+      const findAgain = this.rooms.find(i => i.roomId === roomName);
+
+      findAgain.addMessage(
+        "new user",
+        "Room Created..... Waiting for players ⏰"
+      );
     }
   }
 

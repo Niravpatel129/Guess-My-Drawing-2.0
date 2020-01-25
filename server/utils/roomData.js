@@ -67,6 +67,7 @@ class roomData {
   // game start
   startGame() {
     if (!this.gameData.gameStarted) {
+      this.addMessage("Admin", "Game Started🐇🐇");
       this.gameData.gameStarted = true;
       this.addRound();
     }
