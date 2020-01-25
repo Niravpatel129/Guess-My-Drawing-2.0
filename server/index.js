@@ -88,10 +88,9 @@ io.on("connection", socket => {
   // disconnect room
   socket.on("disconnect", () => {
     console.log("connection disconnect");
+    AllRooms.removeUser(socket.id);
 
     socket.broadcast.emit("checkUserListAgain");
-
-    AllRooms.removeUser(socket.id);
   });
 
   // force disconnect user

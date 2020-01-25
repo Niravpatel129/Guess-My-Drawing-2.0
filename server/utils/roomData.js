@@ -28,6 +28,15 @@ class roomData {
   }
 
   guessedCorrect(user) {
+    // console.log(this.gameData.drawer);
+
+    const findDrawer = this.users.find(i => {
+      return (
+        i.user.googleUserInfo.googleId ===
+        this.gameData.drawer.user.googleUserInfo.googleId
+      );
+    });
+
     const find = this.gameData.usersWhoGussedCorrect.find(i => {
       return i === user.googleId;
     });
@@ -37,7 +46,11 @@ class roomData {
       const addPoints = this.users.find(i => {
         return user.googleId === i.user.googleUserInfo.googleId;
       });
+
       addPoints.points += Math.round(5 + this.gameData.timer / 3);
+      if (findDrawer) {
+        findDrawer.points += Math.round(5 + this.gameData.timer / 8);
+      }
 
       if (
         this.gameData.usersWhoGussedCorrect.length ===
@@ -52,7 +65,6 @@ class roomData {
   startGame() {
     if (!this.gameData.gameStarted) {
       this.gameData.gameStarted = true;
-
       this.addRound();
     }
   }
@@ -170,6 +182,7 @@ class roomData {
     console.log("END");
     this.gameData.gameStarted = false;
     this.gameData = new gameData();
+    this.clearPoints();
     this.controlTimer("stop");
   }
 
@@ -222,6 +235,12 @@ class roomData {
 
   getAllMessages() {
     return this.messages;
+  }
+
+  clearPoints() {
+    for (let user in this.users) {
+      this.users[user].points = 0;
+    }
   }
 }
 
