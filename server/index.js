@@ -120,6 +120,12 @@ const timer = setInterval(() => {
       room.endGame();
     }
 
+    if (!room.gameData.gameStarted) {
+      io.of("/")
+        .to(room.roomId)
+        .emit("gameEnded");
+    }
+
     if (room.gameData.roundEnded) {
       room.gameData.roundEnded = false;
       io.of("/")

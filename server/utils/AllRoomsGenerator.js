@@ -6,7 +6,8 @@ class AllRoomsGenerator {
   }
 
   newRoom(roomName) {
-    if (this.rooms.indexOf(roomName) === -1) {
+    const find = this.rooms.find(i => i.roomId === roomName);
+    if (!find) {
       this.rooms.push(new roomData(roomName));
     }
   }
