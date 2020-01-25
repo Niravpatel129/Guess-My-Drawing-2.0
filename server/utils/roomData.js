@@ -1,6 +1,8 @@
 const timeLimit = 70;
 let timer;
 
+const allWords = require("./words");
+
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -47,9 +49,10 @@ class roomData {
         return user.googleId === i.user.googleUserInfo.googleId;
       });
 
-      addPoints.points += Math.round(5 + this.gameData.timer / 3);
+      addPoints.points +=
+        Math.round(5 + this.gameData.timer / 6) + this.gameData.word.length;
       if (findDrawer) {
-        findDrawer.points += Math.round(5 + this.gameData.timer / 8);
+        findDrawer.points += Math.round(5 + this.gameData.timer / 12);
       }
 
       if (
@@ -145,34 +148,10 @@ class roomData {
   }
 
   setNewDrawWord() {
-    const words = [
-      "Box",
-      "Paper",
-      "Scissors",
-      "Dog",
-      "Brush",
-      "Backpack",
-      "Batteries",
-      "Calender",
-      "Match",
-      "Lipstick",
-      "Shark",
-      "fish",
-      "notepad",
-      "televison",
-      "headset",
-      "pen",
-      "ticket",
-      "water",
-      "beach",
-      "dish",
-      "photo"
-    ];
+    const number = Math.floor(Math.random() * allWords.length);
 
-    const number = Math.floor(Math.random() * words.length);
-
-    if (words[number] !== this.gameData.word) {
-      this.gameData.word = words[number];
+    if (allWords[number] !== this.gameData.word) {
+      this.gameData.word = allWords[number];
     } else {
       this.setNewDrawWord();
     }

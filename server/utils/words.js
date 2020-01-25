@@ -1,0 +1,32 @@
+const words = [
+  "Box",
+  "Paper",
+  "Scissors",
+  "Dog",
+  "Brush",
+  "Backpack",
+  "Batteries",
+  "Calender",
+  "Match",
+  "Lipstick",
+  "Shark",
+  "fish",
+  "notepad",
+  "televison",
+  "headset",
+  "pen",
+  "ticket",
+  "water",
+  "beach",
+  "dish",
+  "lion",
+  "photo",
+  "jungle",
+  "hotel",
+  "house",
+  "wasp",
+  "honey",
+  "bee"
+];
+
+module.exports = words;
