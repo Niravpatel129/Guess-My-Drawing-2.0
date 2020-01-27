@@ -11,7 +11,7 @@ function Message({ name, message, src, style }) {
           <img
             src={
               src ||
-              "https://lh3.googleusercontent.com/a-/AAuE7mCBl4cvUpr-r5rpbm8lphWlGcZ-KNoNdTReBAhm=s96-c"
+              "https://static-cdn.jtvnw.net/jtv_user_pictures/46a42823-2fb3-447b-afae-5b62079ea973-profile_image-50x50.png"
             }
             alt="https://www.w3schools.com/w3images/bandmember.jpg"
           ></img>
