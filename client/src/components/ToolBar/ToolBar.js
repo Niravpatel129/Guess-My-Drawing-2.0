@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { TwitterPicker } from "react-color";
 import { useDispatch, useSelector } from "react-redux";
 import "./ToolBar.scss";
 
 function ToolBar({ canvasRef, handleMouseDown }) {
-  const [setWidth] = useState(useSelector(state => state.brushWidthReducer));
   const canDraw = useSelector(state => state.canDrawReducer);
   const dispatch = useDispatch();
   const handleUndo = () => {
@@ -22,11 +21,6 @@ function ToolBar({ canvasRef, handleMouseDown }) {
   const handleColorChange = (color, event) => {
     console.log(color.hex);
     dispatch({ type: "SET_COLOR", payload: color.hex });
-  };
-
-  const inputChange = e => {
-    setWidth(e.target.value);
-    dispatch({ type: "SET_WIDTH", payload: e.target.value });
   };
 
   return (

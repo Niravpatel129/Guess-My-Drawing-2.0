@@ -14,7 +14,7 @@ function ProfileCard({ src, points, drawing }) {
           }
         ></img>
       </div>
-      <p>{points || 0}pts</p>
+      <p>{points.toLocaleString("en", { useGrouping: true }) || 0}pts</p>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 const timeLimit = 70;
-const pointsMultiplyer = 100;
+const pointsMultiplyer = 300;
 let timer;
 
 const allWords = require("./words");
