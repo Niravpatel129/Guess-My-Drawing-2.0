@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./UserList.scss";
 import SocketContext from "../../context";
 import { useSelector, useDispatch } from "react-redux";
+import ProfileCard from "../ProfileCard/ProfileCard";
 
 function UserList() {
   const localStorageData = JSON.parse(localStorage.getItem("loginUserInfo"));
@@ -85,18 +86,12 @@ function UserList() {
           i.user.googleUserInfo.googleId === drawerId &&
           roomData.gameData.gameStarted;
         return (
-          <div className="user-card" key={index}>
-            <h3>
-              {i.user.googleUserInfo.name}
-              {drawing && (
-                <span role="img" aria-label="pencil">
-                  {" "}
-                  ✏️
-                </span>
-              )}
-            </h3>
-            <p>{i.points} Points</p>
-          </div>
+          <ProfileCard
+            key={index}
+            points={i.points}
+            src={i.user.googleUserInfo.imageUrl}
+            drawing={drawing}
+          />
         );
       });
     }
@@ -104,8 +99,12 @@ function UserList() {
 
   return (
     <div className="UserList">
-      <h4>Room Users:</h4>
-      {renderUser()}
+      <h2>Ranking</h2>
+      <div className="usersparent" id="parent">
+        <div className="users" id="child">
+          {renderUser()}
+        </div>
+      </div>
     </div>
   );
 }

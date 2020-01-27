@@ -1,4 +1,5 @@
 const timeLimit = 70;
+const pointsMultiplyer = 100;
 let timer;
 
 const allWords = require("./words");
@@ -50,9 +51,12 @@ class roomData {
       });
 
       addPoints.points +=
-        Math.round(5 + this.gameData.timer / 6) + this.gameData.word.length;
+        Math.round(pointsMultiplyer + this.gameData.timer / 6) +
+        this.gameData.word.length;
       if (findDrawer) {
-        findDrawer.points += Math.round(5 + this.gameData.timer / 12);
+        findDrawer.points += Math.round(
+          pointsMultiplyer + this.gameData.timer / 12
+        );
       }
 
       if (

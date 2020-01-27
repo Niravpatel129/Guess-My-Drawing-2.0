@@ -4,21 +4,20 @@ import "./Message.scss";
 import { EmojioneV4 } from "react-emoji-render";
 
 function Message({ name, message, src, style }) {
-  const adminStyle = {};
-
   return (
     <>
-      <div className="MessageContainer" style={style}>
-        <img
-          src={
-            src ||
-            "https://vignette.wikia.nocookie.net/p__/images/8/83/Meap_with_mustache.png/revision/latest/scale-to-width-down/340?cb=20111211222815&path-prefix=phineasandferbenespanol%2Fes"
-          }
-          alt="https://www.w3schools.com/w3images/bandmember.jpg"
-        ></img>
+      <div className="MessageContainer">
+        <div className="imageContainer">
+          <img
+            src={
+              src ||
+              "https://lh3.googleusercontent.com/a-/AAuE7mCBl4cvUpr-r5rpbm8lphWlGcZ-KNoNdTReBAhm=s96-c"
+            }
+            alt="https://www.w3schools.com/w3images/bandmember.jpg"
+          ></img>
+        </div>
         <div className="Message">
-          <h4>{name || "ADMIN"}</h4>
-          <p style={adminStyle}>
+          <p>
             <EmojioneV4
               size={64}
               text={message || "You need to enable JavaScript to run this app."}

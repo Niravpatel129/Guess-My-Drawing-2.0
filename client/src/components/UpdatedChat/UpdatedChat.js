@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SocketContext from "../../context";
 import Message from "../Message/Message";
-import "./Chat.scss";
+import "./UpdatedChat.scss";
 
-function Chat() {
+function UpdatedChat() {
   let { socket } = useContext(SocketContext);
   const dispatch = useDispatch();
   const [msg, addMsg] = useState([]);
@@ -63,47 +63,49 @@ function Chat() {
   const renderMessage = () => {
     let style;
     if (msg)
-      return msg.map((e, index) => {
-        if (e.message === ":star::star::star:CORRECT:star::star::star:") {
-          style = { backgroundColor: "#84BAEE" };
-        } else if (!e.name.name) {
-          style = { backgroundColor: "#EDA1A1", fontWeight: 900 };
-        } else {
-          style = {};
-        }
+      return msg
+        .slice(0)
+        .reverse()
+        .map((e, index) => {
+          if (e.message === ":star::star::star:CORRECT:star::star::star:") {
+            style = { backgroundColor: "#84BAEE" };
+          } else if (!e.name.name) {
+            style = { backgroundColor: "#EDA1A1", fontWeight: 900 };
+          } else {
+            style = {};
+          }
 
-        return (
-          <Message
-            src={e.name.imageUrl}
-            name={e.name.name}
-            message={e.message}
-            style={style}
-            key={index}
-          />
-        );
-      });
+          return (
+            <Message
+              src={e.name.imageUrl}
+              name={e.name.name}
+              message={e.message}
+              style={style}
+              key={index}
+            />
+          );
+        });
   };
 
   const Chat = () => {
-    let placeholder = "Type here";
+    let placeholder = "Write your answer here...";
     if (canDraw) {
-      placeholder = "You are drawing!";
+      placeholder = "You are drawing! 🔒";
     }
     return (
-      <div className="Chat">
-        <div className="title">
-          <h1>ChatBox</h1>
-        </div>
-        <div className="messages" ref={messagesRef}>
+      <div className="UpdatedChat">
+        <div className="messages column-reverse" ref={messagesRef}>
           {renderMessage()}
         </div>
-        <input
-          value={input}
-          onChange={e => changeInput(e.target.value)}
-          onKeyPress={submitMessage}
-          placeholder={placeholder}
-          disabled={canDraw}
-        ></input>
+        <div className="inputContainer">
+          <input
+            value={input}
+            onChange={e => changeInput(e.target.value)}
+            onKeyPress={submitMessage}
+            placeholder={placeholder}
+            disabled={canDraw}
+          ></input>
+        </div>
       </div>
     );
   };
@@ -111,4 +113,4 @@ function Chat() {
   return <React.Fragment>{Chat()}</React.Fragment>;
 }
 
-export default Chat;
+export default UpdatedChat;
