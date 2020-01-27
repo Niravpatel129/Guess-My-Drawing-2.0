@@ -55,7 +55,7 @@ class roomData {
         this.gameData.word.length;
       if (findDrawer) {
         findDrawer.points += Math.round(
-          pointsMultiplyer + this.gameData.timer / 12
+          pointsMultiplyer / 2.5 + this.gameData.timer / 12
         );
       }
 
