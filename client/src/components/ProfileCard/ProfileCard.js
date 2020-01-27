@@ -1,10 +1,19 @@
 import React from "react";
 import "./ProfileCard.scss";
-function ProfileCard({ src, points, drawing }) {
+function ProfileCard({ src, points, drawing, index }) {
   let border = drawing ? "2px solid white" : "none";
 
   return (
     <div className="ProfileCard">
+      {index === 0 ? (
+        <img
+          alt="crown"
+          className="crown"
+          src="https://i.imgur.com/4WSmzcl.png"
+        ></img>
+      ) : (
+        ""
+      )}
       <div className="imageContainer" style={{ border: border }}>
         <img
           alt="avatar"

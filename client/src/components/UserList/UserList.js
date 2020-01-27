@@ -87,6 +87,7 @@ function UserList() {
           roomData.gameData.gameStarted;
         return (
           <ProfileCard
+            index={index}
             key={index}
             points={i.points}
             src={i.user.googleUserInfo.imageUrl}
