@@ -91,6 +91,7 @@ function UserList() {
             key={index}
             points={i.points}
             src={i.user.googleUserInfo.imageUrl}
+            name={i.user.googleUserInfo.name}
             drawing={drawing}
           />
         );

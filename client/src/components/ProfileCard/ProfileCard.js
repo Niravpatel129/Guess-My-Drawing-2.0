@@ -1,10 +1,12 @@
 import React from "react";
 import "./ProfileCard.scss";
-function ProfileCard({ src, points, drawing, index }) {
+function ProfileCard({ src, points, drawing, index, name }) {
   let border = drawing ? "2px solid white" : "none";
 
   return (
-    <div className="ProfileCard">
+    <div className="ProfileCard tooltip">
+      <span className="tooltiptext">{name || "user"}</span>
+
       {index === 0 ? (
         <img
           alt="crown"

@@ -6,7 +6,9 @@ import { EmojioneV4 } from "react-emoji-render";
 function Message({ name, message, src, style }) {
   return (
     <>
-      <div className="MessageContainer">
+      <div className="MessageContainer tooltip">
+        <span className="tooltiptext">{name || "Admin"}</span>
+
         <div className="imageContainer">
           <img
             src={
