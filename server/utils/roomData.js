@@ -1,4 +1,4 @@
-const timeLimit = 70;
+const timeLimit = 65;
 const pointsMultiplyer = 300;
 let timer;
 
@@ -107,6 +107,7 @@ class roomData {
   }
 
   nextDrawer() {
+    this.gameData.timer -= 5;
     this.gameData.usersWhoGussedCorrect = [];
     if (this.gameData.roundPlayers.length > 0) {
       if (this.gameData.word) {
