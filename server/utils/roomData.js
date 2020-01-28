@@ -167,15 +167,7 @@ class roomData {
   }
 
   endGame() {
-    console.log(this.users);
-    // this.addMessage(
-    //   "Admin",
-    //   capitalizeFirstLetter(
-    //     this.gameData.drawer.user.googleUserInfo.name
-    //   ) +
-    //     "'s Turn ended: the word was: " +
-    //     capitalizeFirstLetter(this.gameData.word)
-    // );
+    this.addMessage("Admin", "Game Ended, new game will begin shortly");
 
     this.gameData.gameStarted = false;
 
