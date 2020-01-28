@@ -32,7 +32,7 @@ class roomData {
 
   guessedCorrect(user) {
     if (!user) return;
-    // console.log(this.gameData.drawer);
+    if (!this.gameData.drawer) return;
 
     const findDrawer = this.users.find(i => {
       return (
@@ -72,7 +72,7 @@ class roomData {
   // game start
   startGame() {
     if (!this.gameData.gameStarted) {
-      this.addMessage("Admin", "Game Started🐇🐇");
+      this.addMessage("Admin", "New Game Started");
       this.gameData.gameStarted = true;
       this.addRound();
     }

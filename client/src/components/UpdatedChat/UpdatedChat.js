@@ -17,6 +17,7 @@ function UpdatedChat() {
   const dispatch = useDispatch();
   const [msg, addMsg] = useState([]);
   const [input, changeInput] = useState("");
+  const [guessedCorrect, setGussedCorrect] = useState(false);
   const [drawWord, setDrawWord] = useState("");
   const localStorageData = JSON.parse(localStorage.getItem("loginUserInfo"));
 
@@ -24,6 +25,11 @@ function UpdatedChat() {
   const canDraw = useSelector(state => state.canDrawReducer);
 
   const messagesRef = useRef();
+
+  useEffect(() => {
+    setGussedCorrect(false);
+    if (canDraw) changeInput("");
+  }, [canDraw]);
 
   useEffect(() => {
     socket.on("sendTime", res => {
@@ -55,6 +61,7 @@ function UpdatedChat() {
           poof.currentTime = 0;
         }
         if (input.toUpperCase().includes(drawWord.toUpperCase())) {
+          setGussedCorrect(true);
           socket.emit("guessedCorrect", { user: localStorageData, room });
           dispatch({ type: "SET_GUESS", payload: true });
           dispatch({ type: "SET_NOTIFICATION", payload: true });
@@ -116,7 +123,7 @@ function UpdatedChat() {
             onChange={e => changeInput(e.target.value)}
             onKeyPress={submitMessage}
             placeholder={placeholder}
-            disabled={canDraw}
+            disabled={canDraw || guessedCorrect}
           ></input>
         </div>
       </div>
