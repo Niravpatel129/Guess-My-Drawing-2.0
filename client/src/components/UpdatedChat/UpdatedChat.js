@@ -7,9 +7,12 @@ import "./UpdatedChat.scss";
 const poof = new Audio(
   "https://raw.githubusercontent.com/Niravpatel129/World-Shooter-game-browser-multiplayer-online-/master/public/assets/poof.mp3"
 );
+const correct = new Audio(
+  "https://raw.githubusercontent.com/Niravpatel129/React-CRUD-Coding-Test/master/Unlock_level_Game_Sound.mp3"
+);
 
 poof.load();
-
+correct.load();
 poof.volume = 0.2;
 
 function UpdatedChat() {
@@ -55,13 +58,9 @@ function UpdatedChat() {
   const submitMessage = e => {
     if (e.charCode === 13) {
       if (input) {
-        if (poof.paused) {
-          poof.play();
-        } else {
-          poof.currentTime = 0;
-        }
         if (input.toUpperCase().includes(drawWord.toUpperCase())) {
           setGussedCorrect(true);
+          correct.play();
           socket.emit("guessedCorrect", { user: localStorageData, room });
           dispatch({ type: "SET_GUESS", payload: true });
           dispatch({ type: "SET_NOTIFICATION", payload: true });
@@ -73,6 +72,11 @@ function UpdatedChat() {
             input: ":star:CORRECT:star:"
           });
         } else {
+          if (poof.paused) {
+            poof.play();
+          } else {
+            poof.currentTime = 0;
+          }
           socket.emit("chatMessage", { name: localStorageData, room, input });
         }
       }

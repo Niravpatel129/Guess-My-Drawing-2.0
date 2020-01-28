@@ -167,8 +167,18 @@ class roomData {
   }
 
   endGame() {
-    console.log("END");
+    console.log(this.users);
+    // this.addMessage(
+    //   "Admin",
+    //   capitalizeFirstLetter(
+    //     this.gameData.drawer.user.googleUserInfo.name
+    //   ) +
+    //     "'s Turn ended: the word was: " +
+    //     capitalizeFirstLetter(this.gameData.word)
+    // );
+
     this.gameData.gameStarted = false;
+
     this.gameData = new gameData();
     this.clearPoints();
     this.controlTimer("stop");
