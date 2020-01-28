@@ -31,6 +31,7 @@ class roomData {
   }
 
   guessedCorrect(user) {
+    if (!user) return;
     // console.log(this.gameData.drawer);
 
     const findDrawer = this.users.find(i => {
@@ -178,6 +179,8 @@ class roomData {
   }
 
   addUser(user) {
+    if (!user) return;
+
     // check if user exists already!
     const find = this.users.find(i => {
       return user.socketId === i.user.socketId;
@@ -198,6 +201,8 @@ class roomData {
   }
 
   removeUser(user) {
+    if (!user) return;
+
     let removeUserIndex = this.users.findIndex(i => {
       return i.user.socketId === user.user.socketId;
     });
@@ -206,6 +211,8 @@ class roomData {
   }
 
   disconnectUser(user) {
+    if (!user) return;
+
     let removeUserIndex = this.users.findIndex(i => {
       return i.id === user.googleId;
     });
@@ -217,6 +224,8 @@ class roomData {
   }
 
   addMessage(name, message) {
+    if (!name) return;
+
     this.messages.push({ name, message });
   }
 
