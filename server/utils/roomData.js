@@ -129,14 +129,12 @@ class roomData {
           this.gamedata.roundEnded = true;
           this.controlTimer("stop");
 
-          setTimeout(() => {
-            this.gamedata.drawer = this.gamedata.roundPlayers[0];
-            this.gamedata.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
-            this.gamedata.timer = timeLimit;
-            this.setNewDrawWord();
+          this.gamedata.drawer = this.gamedata.roundPlayers[0];
+          this.gamedata.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
+          this.gamedata.timer = timeLimit;
+          this.setNewDrawWord();
 
-            this.controlTimer("start");
-          }, 1000);
+          this.controlTimer("start");
         }, 2500);
       }
     } else {
