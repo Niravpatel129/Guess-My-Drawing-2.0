@@ -1,3 +1,7 @@
+[Demo]
+![App Demo](https://i.imgur.com/8jrHAgh.png)
+
+
 [W.I.P]
 Jan 17, 2020 -> project init
 
