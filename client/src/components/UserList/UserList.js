@@ -109,13 +109,6 @@ function UserList() {
       <div className="UserWrapper disable-scrollbars" id="parent">
         <FlipMove className="FlipMove" duration={500} easing="ease-in-out">
           {renderUser()}
-          {renderUser()}
-          {renderUser()}
-          {renderUser()}
-          {renderUser()}
-          {renderUser()}
-          {renderUser()}
-          {renderUser()}
         </FlipMove>
       </div>
       <img
