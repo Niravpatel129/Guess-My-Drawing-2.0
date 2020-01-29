@@ -1,5 +1,6 @@
 const timeLimit = 65;
 const pointsMultiplyer = 300;
+const maxRounds = 5;
 let timer;
 
 const allWords = require("./words");
@@ -144,7 +145,7 @@ class roomData {
   }
 
   addRound() {
-    if (this.gamedata.round >= 3 || this.users.length <= 1) {
+    if (this.gamedata.round >= maxRounds || this.users.length <= 1) {
       this.endGame();
     } else {
       this.gamedata.round++;
