@@ -106,12 +106,17 @@ function UserList() {
   return (
     <div className="UserList">
       <h2>Ranking</h2>
-      <div className="usersparent" id="parent">
-        <div className="users" id="child" style={{ position: "relative" }}>
-          <FlipMove duration={500} easing="ease-in-out">
-            {renderUser()}
-          </FlipMove>
-        </div>
+      <div className="UserWrapper disable-scrollbars" id="parent">
+        <FlipMove className="FlipMove" duration={500} easing="ease-in-out">
+          {renderUser()}
+          {renderUser()}
+          {renderUser()}
+          {renderUser()}
+          {renderUser()}
+          {renderUser()}
+          {renderUser()}
+          {renderUser()}
+        </FlipMove>
       </div>
       <img
         onClick={settings}
