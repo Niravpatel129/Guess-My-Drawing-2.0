@@ -16,7 +16,7 @@ class gameData {
     this.scores = [];
     this.timer = timeLimit;
     this.drawer = "";
-    this.word = "SomeWord";
+    this.word = "______";
     this.roundPlayers = [];
     this.roundEnded = false;
     this.usersWhoGussedCorrect = [];
@@ -33,7 +33,7 @@ class roomData {
 
   guessedCorrect(user) {
     if (!user) return;
-    if (!this.gamedata.drawer) return;
+    if (!this.gamedata.drawer || !this.gamedata.gameStarted) return;
 
     const findDrawer = this.users.find(i => {
       return (
