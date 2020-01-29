@@ -27,41 +27,41 @@ class roomData {
     this.roomId = roomId;
     this.users = [];
     this.messages = [];
-    this.gameData = new gameData();
+    this.gamedata = new gameData();
   }
 
   guessedCorrect(user) {
     if (!user) return;
-    if (!this.gameData.drawer) return;
+    if (!this.gamedata.drawer) return;
 
     const findDrawer = this.users.find(i => {
       return (
         i.user.googleUserInfo.googleId ===
-        this.gameData.drawer.user.googleUserInfo.googleId
+        this.gamedata.drawer.user.googleUserInfo.googleId
       );
     });
 
-    const find = this.gameData.usersWhoGussedCorrect.find(i => {
+    const find = this.gamedata.usersWhoGussedCorrect.find(i => {
       return i === user.googleId;
     });
 
     if (!find) {
-      this.gameData.usersWhoGussedCorrect.push(user.googleId);
+      this.gamedata.usersWhoGussedCorrect.push(user.googleId);
       const addPoints = this.users.find(i => {
         return user.googleId === i.user.googleUserInfo.googleId;
       });
 
       addPoints.points +=
-        Math.round(pointsMultiplyer + this.gameData.timer / 6) +
-        this.gameData.word.length;
+        Math.round(pointsMultiplyer + this.gamedata.timer / 6) +
+        this.gamedata.word.length;
       if (findDrawer) {
         findDrawer.points += Math.round(
-          pointsMultiplyer / 2.5 + this.gameData.timer / 12
+          pointsMultiplyer / 2.5 + this.gamedata.timer / 12
         );
       }
 
       if (
-        this.gameData.usersWhoGussedCorrect.length ===
+        this.gamedata.usersWhoGussedCorrect.length ===
         this.users.length - 1
       ) {
         this.nextDrawer();
@@ -71,9 +71,9 @@ class roomData {
 
   // game start
   startGame() {
-    if (!this.gameData.gameStarted) {
+    if (!this.gamedata.gameStarted) {
       this.addMessage("Admin", "New Game Started");
-      this.gameData.gameStarted = true;
+      this.gamedata.gameStarted = true;
       this.addRound();
     }
   }
@@ -85,8 +85,8 @@ class roomData {
   controlTimer(mode) {
     if (mode === "start") {
       timer = setInterval(() => {
-        this.gameData.timer--;
-        if (this.gameData.timer <= 0 || mode === "stop") {
+        this.gamedata.timer--;
+        if (this.gamedata.timer <= 0 || mode === "stop") {
           clearInterval(timer);
           this.nextDrawer();
         }
@@ -102,36 +102,36 @@ class roomData {
     }
 
     for (let user of this.users) {
-      this.gameData.roundPlayers.push(user);
+      this.gamedata.roundPlayers.push(user);
     }
   }
 
   nextDrawer() {
-    this.gameData.timer -= 5;
-    this.gameData.usersWhoGussedCorrect = [];
-    if (this.gameData.roundPlayers.length > 0) {
-      if (this.gameData.word) {
+    this.gamedata.timer -= 5;
+    this.gamedata.usersWhoGussedCorrect = [];
+    if (this.gamedata.roundPlayers.length > 0) {
+      if (this.gamedata.word) {
         setTimeout(() => {
-          if (this.gameData.drawer) {
-            if (this.gameData.drawer.user) {
+          if (this.gamedata.drawer) {
+            if (this.gamedata.drawer.user) {
               this.addMessage(
                 "Admin",
                 capitalizeFirstLetter(
-                  this.gameData.drawer.user.googleUserInfo.name
+                  this.gamedata.drawer.user.googleUserInfo.name
                 ) +
                   "'s Turn ended: the word was: " +
-                  capitalizeFirstLetter(this.gameData.word)
+                  capitalizeFirstLetter(this.gamedata.word)
               );
             }
           }
 
-          this.gameData.roundEnded = true;
+          this.gamedata.roundEnded = true;
           this.controlTimer("stop");
 
           setTimeout(() => {
-            this.gameData.drawer = this.gameData.roundPlayers[0];
-            this.gameData.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
-            this.gameData.timer = timeLimit;
+            this.gamedata.drawer = this.gamedata.roundPlayers[0];
+            this.gamedata.roundPlayers.splice(0, 1); // remove the first guy because he is our drawer :D
+            this.gamedata.timer = timeLimit;
             this.setNewDrawWord();
 
             this.controlTimer("start");
@@ -144,24 +144,24 @@ class roomData {
   }
 
   addRound() {
-    if (this.gameData.round >= 3 || this.users.length <= 1) {
+    if (this.gamedata.round >= 3 || this.users.length <= 1) {
       this.endGame();
     } else {
-      this.gameData.round++;
+      this.gamedata.round++;
       this.setDrawerList();
       this.nextDrawer();
     }
   }
 
   toggleRoundEnd() {
-    this.gameData.roundEnded = false;
+    this.gamedata.roundEnded = false;
   }
 
   setNewDrawWord() {
     const number = Math.floor(Math.random() * allWords.length);
 
-    if (allWords[number] !== this.gameData.word) {
-      this.gameData.word = allWords[number];
+    if (allWords[number] !== this.gamedata.word) {
+      this.gamedata.word = allWords[number];
     } else {
       this.setNewDrawWord();
     }
@@ -170,15 +170,15 @@ class roomData {
   endGame() {
     this.addMessage("Admin", "Game Ended, new game will begin shortly");
 
-    this.gameData.gameStarted = false;
+    this.gamedata.gameStarted = false;
 
-    this.gameData = new gameData();
+    this.gamedata = new gameData();
     this.clearPoints();
     this.controlTimer("stop");
   }
 
   getTimer() {
-    return this.gameData.timer;
+    return this.gamedata.timer;
   }
 
   addUser(user) {

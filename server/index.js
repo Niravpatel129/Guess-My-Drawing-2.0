@@ -119,18 +119,18 @@ const timer = setInterval(() => {
       "updateMessage",
       AllRooms.getAllMessages(room.roomId)
     );
-    if (room.users.length <= 1 && room.gameData.gameStarted) {
+    if (room.users.length <= 1 && room.gamedata.gameStarted) {
       room.endGame();
     }
 
-    if (!room.gameData.gameStarted) {
+    if (!room.gamedata.gameStarted) {
       io.of("/")
         .to(room.roomId)
         .emit("gameEnded");
     }
 
-    if (room.gameData.roundEnded) {
-      room.gameData.roundEnded = false;
+    if (room.gamedata.roundEnded) {
+      room.gamedata.roundEnded = false;
       io.of("/")
         .to(room.roomId)
         .emit("roundEnded");
