@@ -1,4 +1,4 @@
-[Demo]
+[Demo of the playing screen]
 ![App Demo](https://i.imgur.com/8jrHAgh.png)
 
 
