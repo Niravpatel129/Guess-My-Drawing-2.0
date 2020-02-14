@@ -5,7 +5,7 @@
 [W.I.P]
 Jan 17, 2020 -> project init
 
-Hosted locally at: 
+Dev Build: 
 https://drawing-game-demo.netlify.com/
 
 [Todo]
